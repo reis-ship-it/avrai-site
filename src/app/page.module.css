@@ -62,6 +62,20 @@
   gap: 24px;
 }
 
+.brandLockup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brandLogo {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  border-radius: 20px;
+  box-shadow: 0 18px 40px rgba(18, 36, 45, 0.14);
+}
+
 .kicker,
 .sectionLabel,
 .footer {
@@ -530,6 +544,16 @@
 @media (max-width: 640px) {
   .main {
     padding: 20px 0 40px;
+  }
+
+  .brandLockup {
+    gap: 12px;
+  }
+
+  .brandLogo {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
   }
 
   .hero h1 {

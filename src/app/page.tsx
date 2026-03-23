@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { WaitlistForm } from "@/components/waitlist-form";
 import styles from "./page.module.css";
 
@@ -16,13 +17,6 @@ const userCapabilities = [
   },
 ];
 
-const partnerCapabilities = [
-  "Claim a place and connect it to your business profile.",
-  "Run reservations, event flows, and customer-facing place experiences.",
-  "Discover experts, form partnerships, and host local experiences.",
-  "Use privacy-preserving insights without turning users into ad inventory.",
-];
-
 const appFlow = [
   "Tell Avrai what kinds of energy, places, and social settings feel right.",
   "Get matched with spots, lists, communities, and events that fit your actual preferences.",
@@ -37,7 +31,17 @@ export default function Home() {
       <div className={styles.orbB} />
       <main className={styles.main}>
         <section className={styles.hero}>
-          <p className={styles.kicker}>Avrai consumer app</p>
+          <div className={styles.brandLockup}>
+            <Image
+              src="/avrai-logo.png"
+              alt="Avrai logo"
+              width={72}
+              height={72}
+              className={styles.brandLogo}
+              priority
+            />
+            <p className={styles.kicker}>Avrai</p>
+          </div>
           <h1>
             Find your people, your places, and a better reason to go out.
           </h1>
@@ -89,30 +93,27 @@ export default function Home() {
 
         <section className={styles.dualPanel}>
           <article className={styles.panel}>
-            <p className={styles.sectionLabel}>What users get</p>
-            <h2>Consumer app capabilities pulled from the product repo.</h2>
+            <p className={styles.sectionLabel}>Personal</p>
+            <h2>What people can do with Avrai.</h2>
             <ul className={styles.featureList}>
-              <li>Spots, map, and search flows for finding places that match your vibe.</li>
-              <li>Lists and local knowledge layers that make good recommendations reusable.</li>
-              <li>Communities, clubs, and events for turning a good place into an actual social life.</li>
-              <li>Group matching for friends, family, or coworkers trying to decide together.</li>
-              <li>Privacy controls, on-device learning, and AI2AI/federated systems aimed at keeping recommendations useful without treating users like products.</li>
+              <li>Find spots that match your mood, taste, and energy instead of digging through generic search results.</li>
+              <li>Use maps, search, and saved lists to keep track of places worth returning to.</li>
+              <li>Discover communities, clubs, and events connected to the places you already like.</li>
+              <li>Plan with friends using group matching that helps everyone land on a place that fits.</li>
+              <li>Get better recommendations over time with privacy-first learning designed to keep the experience personal, not invasive.</li>
             </ul>
           </article>
 
           <article className={styles.panel}>
-            <p className={styles.sectionLabel}>For 3rd parties</p>
-            <h2>Capabilities for places, hosts, and partners.</h2>
+            <p className={styles.sectionLabel}>Business</p>
+            <h2>What places, hosts, and partners can do.</h2>
             <ul className={styles.featureList}>
-              {partnerCapabilities.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
+              <li>Claim and manage a place profile so your location is represented accurately inside the app.</li>
+              <li>Run reservations, event flows, and customer-facing experiences tied to your space.</li>
+              <li>Work with local experts, hosts, and communities to create more relevant programming.</li>
+              <li>Form partnerships around events, activations, and recurring local experiences.</li>
+              <li>Access privacy-preserving insight layers without relying on invasive ad-tech behavior.</li>
             </ul>
-            <p className={styles.panelNote}>
-              This section is based on the business, reservations, claim-place,
-              partnership, and event surfaces in the repo, not the internal
-              admin app.
-            </p>
           </article>
         </section>
 
@@ -162,9 +163,7 @@ export default function Home() {
         <footer className={styles.footer}>
           <span>avrai.org</span>
           <span>
-            Consumer app positioning from the Avrai repo. Partner inquiries:
-            {" "}
-            <a href="mailto:reis@avrai.org">reis@avrai.org</a>
+            Early access and partnerships: <a href="mailto:reis@avrai.org">reis@avrai.org</a>
           </span>
         </footer>
       </main>
