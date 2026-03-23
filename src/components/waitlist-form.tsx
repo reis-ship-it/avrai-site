@@ -4,6 +4,9 @@ import { FormEvent, useState } from "react";
 import styles from "@/app/page.module.css";
 
 type Status = "idle" | "submitting" | "success" | "error";
+const scriptUrl =
+  process.env.NEXT_PUBLIC_WAITLIST_SCRIPT_URL ??
+  "https://script.google.com/macros/s/AKfycbzY5rb-i9V860rdjj3DksliauBL33PS-DPt4qlgcK-iOpnk-mJyDHH1rXzggB9rQaYs/exec";
 
 export function WaitlistForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -22,18 +25,31 @@ export function WaitlistForm() {
     setStatus("submitting");
     setMessage("");
 
-    try {
-      const response = await fetch("https://formsubmit.co/ajax/reis@avrai.org", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-        },
-        body: formData,
-      });
+    if (!scriptUrl) {
+      setStatus("error");
+      setMessage(
+        "Waitlist is not configured yet. Email reis@avrai.org and we’ll add you manually.",
+      );
+      return;
+    }
 
-      if (!response.ok) {
-        throw new Error("Request failed");
-      }
+    try {
+      const payload = new URLSearchParams();
+      payload.set("name", String(formData.get("name") ?? ""));
+      payload.set("email", String(formData.get("email") ?? ""));
+      payload.set("city", String(formData.get("city") ?? ""));
+      payload.set("interest", String(formData.get("interest") ?? ""));
+      payload.set("notes", String(formData.get("notes") ?? ""));
+      payload.set("source", "avrai.org");
+      payload.set("submittedAt", new Date().toISOString());
+      payload.set("userAgent", window.navigator.userAgent);
+      payload.set("_honey", String(formData.get("_honey") ?? ""));
+
+      await fetch(scriptUrl, {
+        method: "POST",
+        mode: "no-cors",
+        body: payload,
+      });
 
       setStatus("success");
       setMessage("You’re on the list. We’ll reach out when early access opens.");
@@ -48,9 +64,6 @@ export function WaitlistForm() {
 
   return (
     <form className={styles.waitlistForm} onSubmit={handleSubmit}>
-      <input type="hidden" name="_subject" value="New AVRAI waitlist signup" />
-      <input type="hidden" name="_template" value="table" />
-      <input type="hidden" name="_captcha" value="false" />
       <input
         className={styles.honeypot}
         type="text"
@@ -104,12 +117,12 @@ export function WaitlistForm() {
         <button
           className={styles.formButton}
           type="submit"
-          disabled={status === "submitting"}
+          disabled={status === "submitting" || !scriptUrl}
         >
           {status === "submitting" ? "Submitting..." : "Join the waitlist"}
         </button>
         <p className={styles.formNote}>
-          Waitlist requests go directly to the Avrai team.
+          Waitlist requests are collected in Avrai’s private signup sheet.
         </p>
       </div>
 
