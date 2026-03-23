@@ -16,7 +16,7 @@ const bodyFont = IBM_Plex_Sans({
 export const metadata: Metadata = {
   title: "Avrai",
   description:
-    "A new home for avrai.org, rebuilt on Vercel for faster iteration and a cleaner web presence.",
+    "Avrai is a privacy-first app for discovering spots, communities, events, and better group plans, with a public waitlist on avrai.org.",
 };
 
 export default function RootLayout({

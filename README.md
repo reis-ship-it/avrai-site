@@ -36,6 +36,10 @@ Connect the repo to Vercel, then attach:
 
 Only the website DNS records need to move to Vercel. Keep Google Workspace mail records in place.
 
+## Waitlist
+
+The public waitlist form submits to `reis@avrai.org` via FormSubmit's AJAX endpoint from the browser. If you want to replace that later with Supabase, Resend, or another backend, update [`/Users/reisgordon/Websites/avrai-site/src/components/waitlist-form.tsx`](/Users/reisgordon/Websites/avrai-site/src/components/waitlist-form.tsx).
+
 ## Notes
 
 - The existing `reis-ship-it/avrai` repository is a separate product/app codebase.
