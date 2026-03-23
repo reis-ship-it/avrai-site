@@ -1,65 +1,85 @@
-import Image from "next/image";
 import styles from "./page.module.css";
+
+const principles = [
+  {
+    title: "Signal over noise",
+    body: "Avrai is being shaped around clear recommendations, real context, and less algorithmic clutter.",
+  },
+  {
+    title: "Plans with texture",
+    body: "The product direction is about helping people move from browsing to actually going somewhere meaningful.",
+  },
+  {
+    title: "Built to evolve",
+    body: "This site now lives in a Vercel-ready codebase so updates can happen quickly, cleanly, and with AI in the loop.",
+  },
+];
+
+const roadmap = [
+  "Launch a clear public-facing homepage for avrai.org.",
+  "Add product story, waitlist, and contact flows.",
+  "Expand the site as the broader Avrai product direction sharpens.",
+];
 
 export default function Home() {
   return (
     <div className={styles.page}>
+      <div className={styles.orbA} />
+      <div className={styles.orbB} />
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+        <section className={styles.hero}>
+          <p className={styles.kicker}>Avrai.org is being rebuilt</p>
+          <h1>
+            A sharper digital front door for the next shape of going out.
+          </h1>
+          <p className={styles.lede}>
+            This repository is the new public site for Avrai, moved into a
+            Vercel-friendly setup so the website can evolve faster than it ever
+            could inside a site builder.
           </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+          <div className={styles.actions}>
+            <a className={styles.primary} href="#direction">
+              See the direction
+            </a>
+            <a className={styles.secondary} href="mailto:reis@avrai.org">
+              Contact
+            </a>
+          </div>
+        </section>
+
+        <section className={styles.statement}>
+          <p>
+            Avrai is about finding better nights, better places, and better
+            reasons to leave the house. The website should feel like the same
+            idea: clear, alive, and worth returning to.
+          </p>
+        </section>
+
+        <section className={styles.principles} id="direction">
+          {principles.map((item) => (
+            <article className={styles.card} key={item.title}>
+              <h2>{item.title}</h2>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </section>
+
+        <section className={styles.roadmap}>
+          <div className={styles.roadmapIntro}>
+            <p className={styles.sectionLabel}>Current buildout</p>
+            <h2>The site starts simple, then expands with the product.</h2>
+          </div>
+          <ol className={styles.timeline}>
+            {roadmap.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ol>
+        </section>
+
+        <footer className={styles.footer}>
+          <span>avrai.org</span>
+          <span>Now running from a GitHub + Vercel workflow</span>
+        </footer>
       </main>
     </div>
   );
