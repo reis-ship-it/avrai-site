@@ -1,22 +1,33 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans, Syne } from "next/font/google";
+import {
+  IBM_Plex_Mono,
+  Manrope,
+  Space_Grotesk,
+} from "next/font/google";
 import "./globals.css";
 
-const displayFont = Syne({
+const displayFont = Space_Grotesk({
   variable: "--font-display",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const bodyFont = IBM_Plex_Sans({
+const bodyFont = Manrope({
   variable: "--font-body",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
 });
 
+const monoFont = IBM_Plex_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
+
 export const metadata: Metadata = {
-  title: "Avrai",
+  title: "AVRAI",
   description:
-    "Avrai is a privacy-first app for discovering spots, communities, events, and better group plans, with a public waitlist on avrai.org.",
+    "AVRAI is building privacy-first discovery and model infrastructure for places, plans, operator workflows, and world-model-driven recommendations.",
 };
 
 export default function RootLayout({
@@ -25,7 +36,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
+    <html
+      lang="en"
+      className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}
+    >
       <body>{children}</body>
     </html>
   );

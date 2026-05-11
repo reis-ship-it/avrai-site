@@ -1,172 +1,327 @@
-import Image from "next/image";
+import { SiteShell } from "@/components/site-shell";
+import { ProngSystem } from "@/components/prong-system";
 import { WaitlistForm } from "@/components/waitlist-form";
 import styles from "./page.module.css";
 
-const userCapabilities = [
+const heroStats = [
+  { label: "Architecture", value: "3 prongs" },
+  { label: "Inference target", value: "<200ms" },
+  { label: "Model footprint", value: "<20MB" },
+  { label: "Release mode", value: "eval-gated" },
+];
+
+const systemLanes = [
   {
-    title: "Discover spots that fit",
-    body: "The consumer app is built around spots, maps, search, lists, and recommendation signals that learn what kinds of places feel right for you.",
+    label: "Applications",
+    body: "Discovery, planning, reservations, and operator workflows.",
   },
   {
-    title: "Plan with other people",
-    body: "Group matching, shared lists, communities, and event flows are all in the app surface so making plans feels less like work.",
+    label: "Runtime",
+    body: "Identity, consent, policy, transport, rollout, and recovery.",
   },
   {
-    title: "Use less feed, get more life",
-    body: "The through-line across onboarding, discovery, events, and privacy settings is real-world reconnection rather than endless engagement.",
+    label: "Reality model",
+    body: "State, scoring, simulation, and next-action planning.",
   },
 ];
 
-const appFlow = [
-  "Tell Avrai what kinds of energy, places, and social settings feel right.",
-  "Get matched with spots, lists, communities, and events that fit your actual preferences.",
-  "Bring friends into the plan with group matching instead of chaotic group chats.",
-  "Let the system improve over time while keeping identity and sensitive data private.",
+const signalPath = ["Places", "Lists", "Groups", "Operations"];
+
+const overviewCards = [
+  {
+    title: "User product",
+    body: "AVRAI helps people discover places, build lists, coordinate plans, and follow through in the real world.",
+  },
+  {
+    title: "Operator product",
+    body: "The same stack supports reservations, host tooling, venue operations, and local workflow intelligence.",
+  },
+  {
+    title: "Privacy runtime",
+    body: "Identity, consent, transport, and rollout stay in a control plane instead of being scattered across app code.",
+  },
+  {
+    title: "Learning system",
+    body: "The reality model improves ranking and planning from saves, visits, returns, and attendance outcomes.",
+  },
+];
+
+const stack = [
+  {
+    label: "Product surfaces",
+    title: "Consumer and operator applications",
+    items: [
+      "Discovery, lists, shared planning, reservations, and local workflow tools",
+      "Shared contracts across mobile products, operator tools, and the public web",
+    ],
+  },
+  {
+    label: "Control plane",
+    title: "Identity, policy, transport, and release",
+    items: [
+      "Consent, authorization, encrypted transport, rollout, rollback, and recovery",
+      "Inference, sync, and operator actions execute through runtime gates",
+    ],
+  },
+  {
+    label: "Decision models",
+    title: "Compact models for ranking and planning",
+    items: [
+      "State representation, scoring, transition prediction, and planning",
+      "Local-first inference with bounded training, evaluation, and promotion",
+    ],
+  },
+  {
+    label: "Security + cloud",
+    title: "Narrow cloud responsibilities",
+    items: [
+      "Model delivery, encrypted sync, observability, and privacy-preserving aggregation",
+      "Security services and key management for local-first and distributed operation",
+    ],
+  },
+];
+
+const modelBridge = [
+  {
+    label: "Why it matters",
+    title: "It turns outcomes into better product decisions",
+    body: "The model improves ranking, planning, and coordination using observed behavior instead of fixed heuristics alone.",
+  },
+  {
+    label: "What it learns",
+    title: "Fit, transitions, and follow-through",
+    body: "It models people, places, groups, context, and likely next states to estimate relevance, risk, and expected completion.",
+  },
+  {
+    label: "Why this design",
+    title: "Built for bounded operational decisions",
+    body: "General-purpose LLMs optimize for broad generation and reasoning. World models optimize for environment simulation. AVRAI optimizes for low-latency decision quality in one operating domain.",
+  },
+];
+
+const realityProcess = [
+  {
+    step: "01",
+    title: "Observe outcomes",
+    body: "Collect signals such as saves, visits, dismissals, returns, reservations, and attendance.",
+  },
+  {
+    step: "02",
+    title: "Build compact state",
+    body: "Encode users, entities, and contexts into a representation the model can score and simulate.",
+  },
+  {
+    step: "03",
+    title: "Train and compare",
+    body: "Learn scoring and transition behavior, then shadow it against incumbent heuristics before promotion.",
+  },
+  {
+    step: "04",
+    title: "Ship under gates",
+    body: "Promote only the models that clear privacy, rollout, rollback, and measurable outcome requirements.",
+  },
 ];
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <div className={styles.orbA} />
-      <div className={styles.orbB} />
-      <main className={styles.main}>
-        <section className={styles.hero}>
-          <div className={styles.brandLockup}>
-            <Image
-              src="/avrai-logo.png"
-              alt="Avrai logo"
-              width={72}
-              height={72}
-              className={styles.brandLogo}
-              priority
-            />
-            <p className={styles.kicker}>Avrai</p>
-          </div>
+    <SiteShell currentPath="/" tone="home">
+      <div className={styles.homeAnchors}>
+        <a className={styles.anchorPill} href="#what-it-is">
+          What it is
+        </a>
+        <a className={styles.anchorPill} href="#prongs">
+          3 prongs
+        </a>
+        <a className={styles.anchorPill} href="#stack">
+          Tech stack
+        </a>
+        <a className={styles.anchorPill} href="#reality-model">
+          Reality model
+        </a>
+        <a className={styles.anchorPill} href="#waitlist">
+          Waitlist
+        </a>
+      </div>
+
+      <section className={styles.hero} id="top">
+        <div className={styles.heroCopy}>
+          <p className={styles.kicker}>Privacy-first discovery and coordination</p>
           <h1>
-            Find your people, your places, and a better reason to go out.
+            AVRAI is building a system for discovering places, coordinating
+            plans, and learning what works in the real world.
           </h1>
           <p className={styles.lede}>
-            Avrai is a privacy-first discovery app for people who are tired of
-            endless scrolling, choice paralysis, and making plans through a
-            dozen tabs and group chats. It helps you find spots, communities,
-            and events that actually fit.
+            AVRAI combines three prongs: product applications, a control plane
+            for identity and consent, and a compact reality model that
+            improves ranking, planning, and coordination from observed
+            outcomes.
           </p>
           <div className={styles.actions}>
             <a className={styles.primary} href="#waitlist">
               Join the waitlist
             </a>
-            <a className={styles.secondary} href="#how-it-works">
-              See how it works
+            <a className={styles.secondary} href="#prongs">
+              Explore the system
             </a>
           </div>
-        </section>
-
-        <section className={styles.statement}>
-          <p>
-            The product direction in the repo is consistent: meaningful
-            real-world outcomes over engagement loops, privacy as a hard
-            boundary, and technology used to get people back into real places
-            with real other people.
+          <p className={styles.disclaimer}>
+            Designed for local-first inference, bounded cloud use, and
+            evidence-gated releases.
           </p>
-        </section>
+        </div>
 
-        <section className={styles.principles} id="how-it-works">
-          {userCapabilities.map((item) => (
-            <article className={styles.card} key={item.title}>
-              <h2>{item.title}</h2>
+        <aside className={styles.heroPanel}>
+          <div className={styles.heroPanelHeader}>
+            <p className={styles.sectionLabel}>System snapshot</p>
+            <p className={styles.panelCode}>product / control plane / model</p>
+          </div>
+          <p className={styles.heroPanelTitle}>What AVRAI is.</p>
+          <p className={styles.heroPanelText}>
+            A discovery product, a privacy runtime, and a compact learning
+            system working as one stack.
+          </p>
+          <div className={styles.heroLaneGrid}>
+            {systemLanes.map((item) => (
+              <article className={styles.heroLaneCard} key={item.label}>
+                <span>{item.label}</span>
+                <p>{item.body}</p>
+              </article>
+            ))}
+          </div>
+          <div className={styles.heroStats}>
+            {heroStats.map((item) => (
+              <div className={styles.statCard} key={item.label}>
+                <span>{item.label}</span>
+                <strong>{item.value}</strong>
+              </div>
+            ))}
+          </div>
+          <div className={styles.flowRail} aria-label="Avrai product arc">
+            {signalPath.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
+        </aside>
+      </section>
+
+      <section className={styles.statement} id="what-it-is">
+        <div className={styles.sectionIntro}>
+          <p className={styles.sectionLabel}>What AVRAI is</p>
+          <h2>A product stack, a control stack, and a learning stack.</h2>
+          <p>
+            Applications deliver product value. Runtime governs trust and
+            release. The reality model improves decision quality.
+          </p>
+        </div>
+
+        <div className={styles.statementGrid}>
+          <article className={styles.quotePanel}>
+            <p>
+              A real-world discovery and coordination product built on a
+              privacy runtime and a learning system.
+            </p>
+          </article>
+
+          <div className={styles.principles}>
+            {overviewCards.map((item) => (
+              <article className={styles.card} key={item.title}>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.prongsSection} id="prongs">
+        <div className={styles.sectionIntro}>
+          <p className={styles.sectionLabel}>Three prongs</p>
+          <h2>Separate the jobs. Connect them through one contract boundary.</h2>
+          <p>
+            Applications own experience. Runtime owns control. The reality
+            model owns decision quality. The system only scales if those
+            responsibilities stay distinct.
+          </p>
+        </div>
+
+        <ProngSystem />
+      </section>
+
+      <section className={styles.stackSection} id="stack">
+        <div className={styles.sectionIntro}>
+          <p className={styles.sectionLabel}>Tech stack</p>
+          <h2>A product stack with narrow boundaries.</h2>
+          <p>
+            Product surfaces sit at the top. Control stays in the runtime.
+            Decision quality sits in the model layer. Cloud services stay
+            narrow.
+          </p>
+        </div>
+
+        <div className={styles.stackGrid}>
+          {stack.map((item) => (
+            <article className={styles.stackCard} key={item.title}>
+              <p className={styles.cardLabel}>{item.label}</p>
+              <h3>{item.title}</h3>
+              <ul className={styles.bulletList}>
+                {item.items.map((entry) => (
+                  <li key={entry}>{entry}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className={styles.realitySection} id="reality-model">
+        <div className={styles.sectionIntro}>
+          <p className={styles.sectionLabel}>Reality model</p>
+          <h2>The reality model is AVRAI&apos;s learning engine.</h2>
+          <p>
+            This is the layer that lets AVRAI move past static retrieval and
+            hand-tuned heuristics. It learns which places fit, which plans are
+            likely to hold, which reservations convert, and which actions
+            improve follow-through.
+          </p>
+        </div>
+
+        <div className={styles.realityBridge}>
+          {modelBridge.map((item) => (
+            <article className={styles.bridgeCard} key={item.title}>
+              <p className={styles.cardLabel}>{item.label}</p>
+              <h3>{item.title}</h3>
               <p>{item.body}</p>
             </article>
           ))}
-        </section>
+        </div>
 
-        <section className={styles.roadmap}>
-          <div className={styles.roadmapIntro}>
-            <p className={styles.sectionLabel}>How the app works</p>
-            <h2>Built around places first, then communities, events, and plans.</h2>
-          </div>
-          <ol className={styles.timeline}>
-            {appFlow.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ol>
-        </section>
-
-        <section className={styles.dualPanel}>
-          <article className={styles.panel}>
-            <p className={styles.sectionLabel}>Personal</p>
-            <h2>What people can do with Avrai.</h2>
-            <ul className={styles.featureList}>
-              <li>Find spots that match your mood, taste, and energy instead of digging through generic search results.</li>
-              <li>Use maps, search, and saved lists to keep track of places worth returning to.</li>
-              <li>Discover communities, clubs, and events connected to the places you already like.</li>
-              <li>Plan with friends using group matching that helps everyone land on a place that fits.</li>
-              <li>Get better recommendations over time with privacy-first learning designed to keep the experience personal, not invasive.</li>
-            </ul>
-          </article>
-
-          <article className={styles.panel}>
-            <p className={styles.sectionLabel}>Business</p>
-            <h2>What places, hosts, and partners can do.</h2>
-            <ul className={styles.featureList}>
-              <li>Claim and manage a place profile so your location is represented accurately inside the app.</li>
-              <li>Run reservations, event flows, and customer-facing experiences tied to your space.</li>
-              <li>Work with local experts, hosts, and communities to create more relevant programming.</li>
-              <li>Form partnerships around events, activations, and recurring local experiences.</li>
-              <li>Access privacy-preserving insight layers without relying on invasive ad-tech behavior.</li>
-            </ul>
-          </article>
-        </section>
-
-        <section className={styles.techSection}>
-          <div className={styles.techIntro}>
-            <p className={styles.sectionLabel}>Privacy-first intelligence</p>
-            <h2>The model is simple even if the underlying system is not.</h2>
-          </div>
-          <div className={styles.techGrid}>
-            <article className={styles.techCard}>
-              <h3>On-device preference learning</h3>
-              <p>
-                The app is built to learn from your preferences and behavior
-                without centering the whole experience on cloud surveillance.
-              </p>
+        <div className={styles.homeProcessGrid}>
+          {realityProcess.map((item) => (
+            <article className={styles.processCard} key={item.step}>
+              <span className={styles.processStep}>{item.step}</span>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
             </article>
-            <article className={styles.techCard}>
-              <h3>AI2AI and federated improvement</h3>
-              <p>
-                The repo and product docs point to AI-to-AI exchange and
-                federated learning as the engine for better matching over time.
-              </p>
-            </article>
-            <article className={styles.techCard}>
-              <h3>Group and community matching</h3>
-              <p>
-                The app is not just about solo recommendations. It also aims to
-                improve where groups go, what communities form, and which events
-                feel worth showing up for.
-              </p>
-            </article>
-          </div>
-        </section>
+          ))}
+        </div>
 
-        <section className={styles.waitlistSection} id="waitlist">
-          <div className={styles.waitlistIntro}>
-            <p className={styles.sectionLabel}>Early access</p>
-            <h2>Join the Avrai waitlist.</h2>
-            <p>
-              Use the form if you want access as an early user, event host,
-              place partner, or business exploring what Avrai could unlock.
-            </p>
-          </div>
-          <WaitlistForm />
-        </section>
+        <p className={styles.processNote}>
+          That is the compounding advantage: AVRAI can improve from lived
+          outcomes while keeping privacy, latency, and release control intact.
+        </p>
+      </section>
 
-        <footer className={styles.footer}>
-          <span>avrai.org</span>
-          <span>
-            Early access and partnerships: <a href="mailto:reis@avrai.org">reis@avrai.org</a>
-          </span>
-        </footer>
-      </main>
-    </div>
+      <section className={styles.waitlistSection} id="waitlist">
+        <div className={styles.waitlistIntro}>
+          <p className={styles.sectionLabel}>Early access</p>
+          <h2>Join the AVRAI waitlist.</h2>
+          <p>
+            Priorities: product pilots, operator design partners, and research
+            conversations.
+          </p>
+        </div>
+        <WaitlistForm />
+      </section>
+    </SiteShell>
   );
 }

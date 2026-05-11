@@ -28,7 +28,7 @@ export function WaitlistForm() {
     if (!scriptUrl) {
       setStatus("error");
       setMessage(
-        "Waitlist is not configured yet. Email reis@avrai.org and we’ll add you manually.",
+        "Waitlist intake is not configured yet. Email reis@avrai.org and we’ll add you manually.",
       );
       return;
     }
@@ -52,12 +52,12 @@ export function WaitlistForm() {
       });
 
       setStatus("success");
-      setMessage("You’re on the list. We’ll reach out when early access opens.");
+      setMessage("Request received. We’ll follow up as early access opens.");
       form.reset();
     } catch {
       setStatus("error");
       setMessage(
-        "The form did not go through. Email reis@avrai.org and we’ll add you manually.",
+        "Submission failed. Email reis@avrai.org and we’ll add you manually.",
       );
     }
   }
@@ -90,26 +90,26 @@ export function WaitlistForm() {
 
         <label className={styles.field}>
           <span>City</span>
-          <input type="text" name="city" placeholder="Brooklyn, New York" />
+          <input type="text" name="city" placeholder="New York, NY" />
         </label>
 
         <label className={styles.field}>
-          <span>I’m interested in</span>
+          <span>Interest</span>
           <select name="interest" defaultValue="consumer">
-            <option value="consumer">Using the app</option>
-            <option value="host">Hosting events</option>
-            <option value="business">Bringing Avrai to a place or business</option>
-            <option value="partner">Partnerships</option>
+            <option value="consumer">Early product access</option>
+            <option value="host">Hosting or venue operations</option>
+            <option value="business">Business or enterprise deployment</option>
+            <option value="partner">Research or partnership</option>
           </select>
         </label>
       </div>
 
       <label className={styles.field}>
-        <span>What do you want Avrai to help with?</span>
+        <span>What are you evaluating?</span>
         <textarea
           name="notes"
           rows={4}
-          placeholder="Finding better places, planning with friends, hosting events, bringing people into a space..."
+          placeholder="Place discovery, group planning, venue workflows, partnerships, research collaboration, or something else."
         />
       </label>
 
@@ -122,7 +122,7 @@ export function WaitlistForm() {
           {status === "submitting" ? "Submitting..." : "Join the waitlist"}
         </button>
         <p className={styles.formNote}>
-          Waitlist requests are collected in Avrai’s private signup sheet.
+          Requests are routed to AVRAI’s private intake sheet.
         </p>
       </div>
 

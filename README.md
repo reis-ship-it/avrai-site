@@ -39,6 +39,7 @@ Only the website DNS records need to move to Vercel. Keep Google Workspace mail 
 ## Waitlist
 
 The public waitlist form is set up to submit to a Google Apps Script web app that writes directly into a Google Sheet.
+The `/business` page uses the same private intake endpoint with a business-specific form for owner claims, place details, desired customer/vibe direction, and node-agent interest.
 
 Set this environment variable in Vercel and locally:
 
