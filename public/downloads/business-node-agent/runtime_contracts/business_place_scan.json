@@ -1,0 +1,342 @@
+{
+  "contractVersion": "runtime_page_contract_v1",
+  "schemaVersion": 1,
+  "platform": "desktop",
+  "presentationLayer": "business_distribution_runtime_contracts",
+  "routeId": "business_place_scan",
+  "pageId": "business_place_scan",
+  "surfaceKind": "place_registry",
+  "title": "Scan place",
+  "navigation": {
+    "primaryRouteId": "business_place_scan",
+    "availableRouteIds": [
+      "business_account",
+      "business_place_scan",
+      "business_owner_claim",
+      "business_runtime_wiring",
+      "business_node_agent",
+      "business_desire",
+      "business_rundown"
+    ],
+    "businessEntityLevelNavigation": true
+  },
+  "sections": [
+    {
+      "id": "business_place_scan_summary",
+      "kind": "summary",
+      "title": "Scan place",
+      "components": [
+        {
+          "id": "business_place_scan_runtime_owner",
+          "type": "text",
+          "semanticRole": "explanation",
+          "text": "Runtime owns this business page and context; native shells render the platform look.",
+          "actions": [],
+          "metadata": {}
+        },
+        {
+          "id": "business_place_scan_context_placeScanClaim",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Place scan claim",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "placeScanClaim",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_place_scan_context_scanStatus",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Scan status",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "scanStatus",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_place_scan_context_scanRegistry",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Scan registry",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "scanRegistry",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_place_scan_context_scanSource",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Scan source",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "scanSource",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_place_scan_context_claimTargetSpot",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Claim target spot",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "claimTargetSpot",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_place_scan_context_scanGeohash",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Scan geohash",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "scanGeohash",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_place_scan_context_scanBoundary",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Scan boundary",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "scanBoundary",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_place_scan_context_spotCandidate",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Spot candidate",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "spotCandidate",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_place_scan_context_scanPrivacy",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Scan privacy",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "scanPrivacy",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_place_scan_context_targetSpotId",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Target spot",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "targetSpotId",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_place_scan_context_centroidGeohash",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Centroid geohash",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "centroidGeohash",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_place_scan_context_coveringGeohashes",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Boundary cells",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "coveringGeohashes",
+            "runtimeContextAuthority": true
+          }
+        }
+      ],
+      "metadata": {
+        "runtimeOwnedPage": true,
+        "nativeShellMayRestyle": true,
+        "nativeShellMayReorderBusinessLogic": false
+      }
+    },
+    {
+      "id": "business_place_scan_privacy",
+      "kind": "governance",
+      "title": "Governance",
+      "components": [
+        {
+          "id": "business_privacy_boundary",
+          "type": "status_row",
+          "semanticRole": "privacy",
+          "title": "Privacy lane",
+          "value": "no traceable human data",
+          "actions": [],
+          "metadata": {}
+        },
+        {
+          "id": "business_signal_lane",
+          "type": "status_row",
+          "semanticRole": "governance",
+          "title": "Signal lane",
+          "value": "generalized forcefield allowed ai2ai",
+          "actions": [],
+          "metadata": {}
+        }
+      ],
+      "metadata": {}
+    }
+  ],
+  "actions": [
+    {
+      "id": "business_place_scan.submit",
+      "kind": "submit_public_place_scan_claim",
+      "label": "Scan place into map",
+      "enabled": true,
+      "payloadSchema": {},
+      "metadata": {}
+    }
+  ],
+  "forms": [
+    {
+      "formId": "business_place_scan.claim",
+      "fields": [
+        {
+          "id": "placeLabel",
+          "type": "text"
+        },
+        {
+          "id": "placeCategory",
+          "type": "text"
+        },
+        {
+          "id": "placeDescription",
+          "type": "multiline_text"
+        },
+        {
+          "id": "providedAddress",
+          "type": "text"
+        },
+        {
+          "id": "walkaroundCoordinates",
+          "type": "coordinate_list"
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "mode": "runtime_owned",
+    "nativeShellSubmitsActionIds": true,
+    "businessClaimsRequireForcefield": true,
+    "traceableHumanPersonalDataAllowed": false
+  },
+  "permissions": [
+    "network",
+    "location_when_in_use_for_place_boundary"
+  ],
+  "runtimeState": {
+    "source": "business_runtime_design_service",
+    "runtimeOwnsBusinessPagesAndContext": true,
+    "presentationLayerOwnsOnlyNativeLookAndFeel": true,
+    "rendererOwnsOnlyPlatformLookAndFeel": true,
+    "rendererShellBusinessLogicAllowed": false,
+    "flutterWebRendererAllowed": true,
+    "nativeShellBusinessLogicAllowed": false,
+    "businessContext": {},
+    "privacyBoundary": "no_traceable_human_personal_data",
+    "signalLane": "generalized_forcefield_allowed_ai2ai"
+  },
+  "accessibility": {
+    "nativeSemanticsRequired": true,
+    "dynamicTypeRequired": true,
+    "screenReaderLabelsRequired": true
+  },
+  "instrumentation": {
+    "contractEmitter": "BusinessRuntimeDesignService",
+    "routeFamily": "place_registry",
+    "subjectScope": "business"
+  },
+  "releaseClearance": "business_shell_v1",
+  "nativeRenderPolicy": {
+    "renderer": "native",
+    "fallbackBehavior": "fail_closed_no_native_business_shell_logic",
+    "requiredComponents": [
+      "text",
+      "section_header",
+      "text_input",
+      "secure_input",
+      "multiline_input",
+      "action_button",
+      "status_row",
+      "download_button",
+      "manifest_link",
+      "coordinate_list",
+      "rundown_summary"
+    ]
+  },
+  "visualStyle": {
+    "styleId": "avra_business_native_entity_ops_v1",
+    "mode": "light",
+    "colors": {
+      "surfaceBackground": "#F7F8F5",
+      "cardBackground": "#FFFFFF",
+      "cardBorder": "#DADFD6",
+      "subtleFill": "#EEF3EC",
+      "accent": "#18785F",
+      "accentPressed": "#0F5F4A",
+      "successBackground": "#DFF7EA",
+      "successText": "#114D35",
+      "warningBackground": "#FFF2D8",
+      "warningText": "#674313",
+      "primaryText": "#16241F",
+      "secondaryText": "#3D4B43",
+      "mutedText": "#59645D",
+      "highlightText": "#705C14"
+    },
+    "metrics": {
+      "surfacePadding": 24.0,
+      "sectionSpacing": 20.0,
+      "cardRadius": 8.0,
+      "inlineRadius": 8.0,
+      "buttonRadius": 999.0,
+      "badgeRadius": 999.0,
+      "hairlineWidth": 1.0
+    },
+    "typography": {
+      "family": "system",
+      "titleWeight": "bold",
+      "bodyWeight": "regular",
+      "labelWeight": "semibold"
+    },
+    "motion": {
+      "loadingTransition": "platform_native",
+      "styleSwapAllowed": false
+    }
+  },
+  "generatedAtUtc": "2026-05-10T04:34:21.753858Z"
+}

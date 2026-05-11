@@ -4,66 +4,63 @@ import { SitePageHero, SiteShell } from "@/components/site-shell";
 import styles from "@/app/page.module.css";
 
 const businessSignals = [
-  "Business profile",
-  "Place scan",
+  "Interest form",
+  "Business app",
   "Node agent",
-  "AI2AI fit",
+  "Pilot access",
 ];
 
 const accountSteps = [
   {
     label: "01",
-    title: "Claim the business",
-    body: "Start with owner/operator contact, business description, category, and place details.",
+    title: "Submit interest",
+    body: "Tell us who operates the business, where you are, and what kind of AVRAI Business access you want.",
   },
   {
     label: "02",
-    title: "Describe the fit",
-    body: "Tell AVRAI who the business is for, what the desired vibe is, and what kind of customers should be promoted toward it.",
+    title: "Download the preview",
+    body: "Use the Business App web preview bundle or the current node-agent artifact while native installers are prepared.",
   },
   {
     label: "03",
-    title: "Map the place",
-    body: "Prepare a place scan and address boundary so the living map can understand the business as an entity, not just a listing.",
+    title: "Try the business flow",
+    body: "Review the account, runtime, and node setup surfaces without creating a live registry account from the website.",
   },
   {
     label: "04",
-    title: "Install the node",
-    body: "Use the business node agent when the business is ready for always-on entity-level participation.",
+    title: "Request pilot setup",
+    body: "When the business is ready, AVRAI can configure account, node, and registry access through the app path.",
   },
 ];
 
-const governanceCards = [
+const downloadCards = [
   {
-    label: "Registry",
-    title: "Business profile and place claim",
-    items: [
-      "Business owner description becomes a claim for review.",
-      "Place details prepare the registry for geohash boundary data.",
-    ],
+    label: "Preview",
+    title: "Business App web bundle",
+    body: "Download the current Business App web/PWA build for review and local preview.",
+    href: "/downloads/avrai-business-app-web-preview.zip",
+    action: "Download app bundle",
   },
   {
-    label: "Forcefield",
-    title: "Generalized AI2AI interaction only",
-    items: [
-      "Businesses see governed, generalized signals.",
-      "No customer personal data is tracked through the business account.",
-    ],
+    label: "macOS",
+    title: "Business Node Agent",
+    body: "Download the current unsigned macOS arm64 always-on node-agent executable.",
+    href: "/downloads/business-node-agent/artifacts/macos/avrai-business-node-agent-macos-arm64",
+    action: "Download macOS agent",
   },
   {
-    label: "Actualizer",
-    title: "Entity-level node direction",
-    items: [
-      "The business can become an entity in the hierarchy.",
-      "QETS/DNA direction starts from strict seed intake and review.",
-    ],
+    label: "Manifest",
+    title: "Download manifest",
+    body: "Inspect the published artifact manifest, service templates, and runtime contract paths.",
+    href: "/downloads/business-node-agent/download_manifest.json",
+    action: "Open manifest",
   },
 ];
 
 export const metadata: Metadata = {
   title: "Business | AVRAI",
   description:
-    "Start an AVRAI Business account for business profiles, place registry claims, governed AI2AI fit, and business node setup.",
+    "Submit AVRAI Business interest and download the current Business App preview.",
 };
 
 export default function BusinessPage() {
@@ -71,16 +68,17 @@ export default function BusinessPage() {
     <SiteShell currentPath="/business" tone="business">
       <SitePageHero
         eyebrow="AVRAI Business"
-        title="Create a business profile, map the place, and prepare an entity-level node."
-        lede="AVRAI Business is the entry point for owner claims, place scans, business QETS/DNA direction, governed AI2AI fit, and the always-on business node agent."
+        title="Download the business app preview and tell us you are interested."
+        lede="AVRAI Business is currently a simple interest path plus preview downloads for the business app and the early always-on node agent."
         aside={
           <>
             <div className={styles.heroPanelHeader}>
-              <p className={styles.sectionLabel}>Business account path</p>
-              <p className={styles.panelCode}>claim / map / node / learn</p>
+              <p className={styles.sectionLabel}>Business path</p>
+              <p className={styles.panelCode}>interest / download / pilot</p>
             </div>
             <p className={styles.heroPanelText}>
-              Start with a business claim. Grow into a governed AVRAI entity.
+              The website collects interest. The app handles account and node
+              workflows when pilot setup is ready.
             </p>
             <div className={styles.flowRail}>
               {businessSignals.map((item) => (
@@ -93,12 +91,12 @@ export default function BusinessPage() {
 
       <section className={styles.journeySection}>
         <div className={styles.sectionIntro}>
-          <p className={styles.sectionLabel}>Signup flow</p>
-          <h2>Business accounts start as claims that AVRAI can verify.</h2>
+          <p className={styles.sectionLabel}>Current flow</p>
+          <h2>The website is now interest and downloads only.</h2>
           <p>
-            The owner description is not just profile copy. It becomes the
-            first direction for who the business should be promoted for and how
-            its entity model should be weighted after review.
+            No public website submission creates a registry account, scans
+            coordinates, or writes live business records. Those workflows stay
+            in the Business App path.
           </p>
         </div>
 
@@ -115,20 +113,24 @@ export default function BusinessPage() {
 
       <section className={styles.surfaceSection}>
         <div className={styles.sectionIntro}>
-          <p className={styles.sectionLabel}>Governed wiring</p>
-          <h2>The business account connects to registry, forcefield, and hierarchy.</h2>
+          <p className={styles.sectionLabel}>Downloads</p>
+          <h2>Try the current Business App preview.</h2>
+          <p>
+            These are preview artifacts, not signed production installers. The
+            native Windows and Linux node-agent binaries are not published in
+            this website bundle yet.
+          </p>
         </div>
 
         <div className={styles.surfaceGrid}>
-          {governanceCards.map((item) => (
+          {downloadCards.map((item) => (
             <article className={styles.surfaceCard} key={item.title}>
               <p className={styles.cardLabel}>{item.label}</p>
               <h3>{item.title}</h3>
-              <ul className={styles.bulletList}>
-                {item.items.map((entry) => (
-                  <li key={entry}>{entry}</li>
-                ))}
-              </ul>
+              <p>{item.body}</p>
+              <a className={styles.downloadLink} href={item.href} download>
+                {item.action}
+              </a>
             </article>
           ))}
         </div>
@@ -136,12 +138,11 @@ export default function BusinessPage() {
 
       <section className={styles.waitlistSection}>
         <div className={styles.waitlistIntro}>
-          <p className={styles.sectionLabel}>Business signup</p>
-          <h2>Start the business account intake.</h2>
+          <p className={styles.sectionLabel}>Interest form</p>
+          <h2>Tell us you want AVRAI Business.</h2>
           <p>
-            Submit the business claim, place details, audience direction, and
-            optional QR walkaround points. The intake writes directly into the
-            AVRAI Supabase registry path used by the app.
+            This form only captures business interest and follow-up contact.
+            It does not create a live business account or registry entry.
           </p>
         </div>
         <BusinessSignupForm />

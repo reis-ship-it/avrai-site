@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.avrai.business-node-agent</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>__AVRAI_BUSINESS_NODE_AGENT_PATH__</string>
+    <string>--launch-export</string>
+    <string>__AVRAI_BUSINESS_NODE_LAUNCH_EXPORT__</string>
+    <string>--callback-url</string>
+    <string>__AVRAI_BUSINESS_NODE_CALLBACK_URL__</string>
+    <string>--service</string>
+    <string>--state-path</string>
+    <string>__AVRAI_BUSINESS_NODE_STATE_PATH__</string>
+    <string>--heartbeat-interval</string>
+    <string>60</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>__AVRAI_BUSINESS_NODE_LOG_DIR__/business-node-agent.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>__AVRAI_BUSINESS_NODE_LOG_DIR__/business-node-agent.err.log</string>
+</dict>
+</plist>

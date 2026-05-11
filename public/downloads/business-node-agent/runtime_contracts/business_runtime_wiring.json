@@ -1,0 +1,658 @@
+{
+  "contractVersion": "runtime_page_contract_v1",
+  "schemaVersion": 1,
+  "platform": "desktop",
+  "presentationLayer": "business_distribution_runtime_contracts",
+  "routeId": "business_runtime_wiring",
+  "pageId": "business_runtime_wiring",
+  "surfaceKind": "runtime_status",
+  "title": "Runtime wiring",
+  "navigation": {
+    "primaryRouteId": "business_runtime_wiring",
+    "availableRouteIds": [
+      "business_account",
+      "business_place_scan",
+      "business_owner_claim",
+      "business_runtime_wiring",
+      "business_node_agent",
+      "business_desire",
+      "business_rundown"
+    ],
+    "businessEntityLevelNavigation": true
+  },
+  "sections": [
+    {
+      "id": "business_runtime_wiring_summary",
+      "kind": "summary",
+      "title": "Runtime wiring",
+      "components": [
+        {
+          "id": "business_runtime_wiring_runtime_owner",
+          "type": "text",
+          "semanticRole": "explanation",
+          "text": "Runtime owns this business page and context; native shells render the platform look.",
+          "actions": [],
+          "metadata": {}
+        },
+        {
+          "id": "business_runtime_wiring_context_businessAccount",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Business account",
+          "value": "created by business account runtime",
+          "actions": [],
+          "metadata": {
+            "contextKey": "businessAccount",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_businessProfileSource",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Business profile source",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "businessProfileSource",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_businessProfile",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Business profile",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "businessProfile",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_businessOwner",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Business owner",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "businessOwner",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_entityRegistry",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Entity registry",
+          "value": "shared business/place registry",
+          "actions": [],
+          "metadata": {
+            "contextKey": "entityRegistry",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_placeCandidate",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Place candidate",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "placeCandidate",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_targetSpot",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Target spot",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "targetSpot",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_linkedScan",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Linked scan",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "linkedScan",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_ownerClaimBoundary",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Owner claim boundary",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "ownerClaimBoundary",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_businessId",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Business id",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "businessId",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_ai2aiNodeId",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "ai2ai node",
+          "value": "ai2ai business entity node",
+          "actions": [],
+          "metadata": {
+            "contextKey": "ai2aiNodeId",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_registryTarget",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Registry target",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "registryTarget",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_forcefieldReceiptId",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Forcefield receipt",
+          "value": "required before propagation",
+          "actions": [],
+          "metadata": {
+            "contextKey": "forcefieldReceiptId",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_actualizerScope",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Actualizer scope",
+          "value": "business",
+          "actions": [],
+          "metadata": {
+            "contextKey": "actualizerScope",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_candidateRef",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Candidate ref",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "candidateRef",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_qetsDnaLabel",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "QETS/DNA label",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "qetsDnaLabel",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_qetsDnaSource",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "QETS/DNA source",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "qetsDnaSource",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_bhamSeed",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "BHAM seed",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "bhamSeed",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_entityProfile",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Entity profile",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "entityProfile",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_seedClaim",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Seed claim",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "seedClaim",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_reviewStatus",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Review status",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "reviewStatus",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_ownershipReview",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Ownership review",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "ownershipReview",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_statusSource",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Status source",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "statusSource",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_businessNextStep",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Business next step",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "businessNextStep",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_statusChecked",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Status checked",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "statusChecked",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_sharedSeed",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Shared seed",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "sharedSeed",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_audienceDirection",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Audience direction",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "audienceDirection",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_nodeWeights",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Node weights",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "nodeWeights",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_verifiedAudience",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Verified audience",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "verifiedAudience",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_rejectedAudience",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Rejected audience",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "rejectedAudience",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_allowedWeights",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Allowed weights",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "allowedWeights",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_reviewNote",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Review note",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "reviewNote",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_governanceLane",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Governance lane",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "governanceLane",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_propagationLane",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Propagation lane",
+          "value": "ai2ai only",
+          "actions": [],
+          "metadata": {
+            "contextKey": "propagationLane",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_mapUpload",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Map upload",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "mapUpload",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_scanQrSeed",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Scan QR seed",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "scanQrSeed",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_geohashStatus",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Geohash status",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "geohashStatus",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_boundaryCells",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Boundary cells",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "boundaryCells",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_boundarySamples",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Boundary samples",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "boundarySamples",
+            "runtimeContextAuthority": true
+          }
+        },
+        {
+          "id": "business_runtime_wiring_context_spotPayload",
+          "type": "status_row",
+          "semanticRole": "business_context",
+          "title": "Spot payload",
+          "value": "waiting",
+          "actions": [],
+          "metadata": {
+            "contextKey": "spotPayload",
+            "runtimeContextAuthority": true
+          }
+        }
+      ],
+      "metadata": {
+        "runtimeOwnedPage": true,
+        "nativeShellMayRestyle": true,
+        "nativeShellMayReorderBusinessLogic": false
+      }
+    },
+    {
+      "id": "business_runtime_wiring_privacy",
+      "kind": "governance",
+      "title": "Governance",
+      "components": [
+        {
+          "id": "business_privacy_boundary",
+          "type": "status_row",
+          "semanticRole": "privacy",
+          "title": "Privacy lane",
+          "value": "no traceable human data",
+          "actions": [],
+          "metadata": {}
+        },
+        {
+          "id": "business_signal_lane",
+          "type": "status_row",
+          "semanticRole": "governance",
+          "title": "Signal lane",
+          "value": "generalized forcefield allowed ai2ai",
+          "actions": [],
+          "metadata": {}
+        }
+      ],
+      "metadata": {}
+    }
+  ],
+  "actions": [
+    {
+      "id": "business_runtime.refresh",
+      "kind": "refresh_business_runtime_status",
+      "label": "Refresh registry status",
+      "enabled": true,
+      "payloadSchema": {},
+      "metadata": {}
+    }
+  ],
+  "forms": [],
+  "validation": {
+    "mode": "runtime_owned",
+    "nativeShellSubmitsActionIds": true,
+    "businessClaimsRequireForcefield": true,
+    "traceableHumanPersonalDataAllowed": false
+  },
+  "permissions": [
+    "network"
+  ],
+  "runtimeState": {
+    "source": "business_runtime_design_service",
+    "runtimeOwnsBusinessPagesAndContext": true,
+    "presentationLayerOwnsOnlyNativeLookAndFeel": true,
+    "rendererOwnsOnlyPlatformLookAndFeel": true,
+    "rendererShellBusinessLogicAllowed": false,
+    "flutterWebRendererAllowed": true,
+    "nativeShellBusinessLogicAllowed": false,
+    "businessContext": {
+      "businessAccount": "created by business account runtime",
+      "entityRegistry": "shared business/place registry",
+      "ai2aiNodeId": "ai2ai business entity node",
+      "forcefieldReceiptId": "required before propagation",
+      "actualizerScope": "business",
+      "propagationLane": "ai2ai only"
+    },
+    "privacyBoundary": "no_traceable_human_personal_data",
+    "signalLane": "generalized_forcefield_allowed_ai2ai"
+  },
+  "accessibility": {
+    "nativeSemanticsRequired": true,
+    "dynamicTypeRequired": true,
+    "screenReaderLabelsRequired": true
+  },
+  "instrumentation": {
+    "contractEmitter": "BusinessRuntimeDesignService",
+    "routeFamily": "runtime_status",
+    "subjectScope": "business"
+  },
+  "releaseClearance": "business_shell_v1",
+  "nativeRenderPolicy": {
+    "renderer": "native",
+    "fallbackBehavior": "fail_closed_no_native_business_shell_logic",
+    "requiredComponents": [
+      "text",
+      "section_header",
+      "text_input",
+      "secure_input",
+      "multiline_input",
+      "action_button",
+      "status_row",
+      "download_button",
+      "manifest_link",
+      "coordinate_list",
+      "rundown_summary"
+    ]
+  },
+  "visualStyle": {
+    "styleId": "avra_business_native_entity_ops_v1",
+    "mode": "light",
+    "colors": {
+      "surfaceBackground": "#F7F8F5",
+      "cardBackground": "#FFFFFF",
+      "cardBorder": "#DADFD6",
+      "subtleFill": "#EEF3EC",
+      "accent": "#18785F",
+      "accentPressed": "#0F5F4A",
+      "successBackground": "#DFF7EA",
+      "successText": "#114D35",
+      "warningBackground": "#FFF2D8",
+      "warningText": "#674313",
+      "primaryText": "#16241F",
+      "secondaryText": "#3D4B43",
+      "mutedText": "#59645D",
+      "highlightText": "#705C14"
+    },
+    "metrics": {
+      "surfacePadding": 24.0,
+      "sectionSpacing": 20.0,
+      "cardRadius": 8.0,
+      "inlineRadius": 8.0,
+      "buttonRadius": 999.0,
+      "badgeRadius": 999.0,
+      "hairlineWidth": 1.0
+    },
+    "typography": {
+      "family": "system",
+      "titleWeight": "bold",
+      "bodyWeight": "regular",
+      "labelWeight": "semibold"
+    },
+    "motion": {
+      "loadingTransition": "platform_native",
+      "styleSwapAllowed": false
+    }
+  },
+  "generatedAtUtc": "2026-05-10T04:34:21.756518Z"
+}
