@@ -139,8 +139,9 @@ export default function BusinessPage() {
           <p className={styles.sectionLabel}>Business signup</p>
           <h2>Start the business account intake.</h2>
           <p>
-            Submit the business claim, place details, and audience direction.
-            AVRAI will use this as the first reviewable seed for the account.
+            Submit the business claim, place details, audience direction, and
+            optional QR walkaround points. The intake writes directly into the
+            AVRAI Supabase registry path used by the app.
           </p>
         </div>
         <BusinessSignupForm />
