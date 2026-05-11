@@ -38,7 +38,7 @@ export function BusinessSignupForm() {
           email: field(formData, "email"),
           city: field(formData, "city"),
           businessType: field(formData, "businessType"),
-          downloadInterest: field(formData, "downloadInterest"),
+          accessInterest: field(formData, "accessInterest"),
           notes: field(formData, "notes"),
           _honey: field(formData, "_honey"),
         }),
@@ -120,9 +120,9 @@ export function BusinessSignupForm() {
         </label>
 
         <label className={styles.field}>
-          <span>Download interest</span>
-          <select name="downloadInterest" defaultValue="business-app">
-            <option value="business-app">Business app preview</option>
+          <span>Access interest</span>
+          <select name="accessInterest" defaultValue="business-app">
+            <option value="business-app">Business app</option>
             <option value="node-agent">Always-on node agent</option>
             <option value="both">Business app and node agent</option>
             <option value="pilot">Pilot access</option>

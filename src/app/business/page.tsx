@@ -18,13 +18,13 @@ const accountSteps = [
   },
   {
     label: "02",
-    title: "Download the preview",
-    body: "Use the Business App web preview bundle or the current node-agent artifact while native installers are prepared.",
+    title: "Request access",
+    body: "Tell us whether you are interested in the Business App, the node agent, or pilot setup.",
   },
   {
     label: "03",
-    title: "Try the business flow",
-    body: "Review the account, runtime, and node setup surfaces without creating a live registry account from the website.",
+    title: "Wait for release",
+    body: "No public app, node-agent, manifest, or installer files are available from the website right now.",
   },
   {
     label: "04",
@@ -33,34 +33,9 @@ const accountSteps = [
   },
 ];
 
-const downloadCards = [
-  {
-    label: "Preview",
-    title: "Business App web bundle",
-    body: "Download the current Business App web/PWA build for review and local preview.",
-    href: "/downloads/avrai-business-app-web-preview.zip",
-    action: "Download app bundle",
-  },
-  {
-    label: "macOS",
-    title: "Business Node Agent",
-    body: "Download the current unsigned macOS arm64 always-on node-agent executable.",
-    href: "/downloads/business-node-agent/artifacts/macos/avrai-business-node-agent-macos-arm64",
-    action: "Download macOS agent",
-  },
-  {
-    label: "Manifest",
-    title: "Download manifest",
-    body: "Inspect the published artifact manifest, service templates, and runtime contract paths.",
-    href: "/downloads/business-node-agent/download_manifest.json",
-    action: "Open manifest",
-  },
-];
-
 export const metadata: Metadata = {
   title: "Business | AVRAI",
-  description:
-    "Submit AVRAI Business interest and download the current Business App preview.",
+  description: "Submit AVRAI Business interest for future app access.",
 };
 
 export default function BusinessPage() {
@@ -68,17 +43,17 @@ export default function BusinessPage() {
     <SiteShell currentPath="/business" tone="business">
       <SitePageHero
         eyebrow="AVRAI Business"
-        title="Download the business app preview and tell us you are interested."
-        lede="AVRAI Business is currently a simple interest path plus preview downloads for the business app and the early always-on node agent."
+        title="Tell us you are interested in AVRAI Business."
+        lede="AVRAI Business is currently an interest path only. No public app, node-agent, manifest, or installer downloads are available from this website."
         aside={
           <>
             <div className={styles.heroPanelHeader}>
               <p className={styles.sectionLabel}>Business path</p>
-              <p className={styles.panelCode}>interest / download / pilot</p>
+              <p className={styles.panelCode}>interest / waitlist / pilot</p>
             </div>
             <p className={styles.heroPanelText}>
-              The website collects interest. The app handles account and node
-              workflows when pilot setup is ready.
+              The website only collects interest. App and node-agent access
+              will be handled separately when a release is ready.
             </p>
             <div className={styles.flowRail}>
               {businessSignals.map((item) => (
@@ -92,11 +67,11 @@ export default function BusinessPage() {
       <section className={styles.journeySection}>
         <div className={styles.sectionIntro}>
           <p className={styles.sectionLabel}>Current flow</p>
-          <h2>The website is now interest and downloads only.</h2>
+          <h2>The website is interest-only.</h2>
           <p>
             No public website submission creates a registry account, scans
-            coordinates, or writes live business records. Those workflows stay
-            in the Business App path.
+            coordinates, writes live business records, or exposes downloadable
+            files.
           </p>
         </div>
 
@@ -113,26 +88,13 @@ export default function BusinessPage() {
 
       <section className={styles.surfaceSection}>
         <div className={styles.sectionIntro}>
-          <p className={styles.sectionLabel}>Downloads</p>
-          <h2>Try the current Business App preview.</h2>
+          <p className={styles.sectionLabel}>Availability</p>
+          <h2>Nothing is available to download from the website right now.</h2>
           <p>
-            These are preview artifacts, not signed production installers. The
-            native Windows and Linux node-agent binaries are not published in
-            this website bundle yet.
+            Business App and node-agent access will come later through a
+            controlled release path. The public website should not download or
+            open any app, node-agent, manifest, installer, or service template.
           </p>
-        </div>
-
-        <div className={styles.surfaceGrid}>
-          {downloadCards.map((item) => (
-            <article className={styles.surfaceCard} key={item.title}>
-              <p className={styles.cardLabel}>{item.label}</p>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-              <a className={styles.downloadLink} href={item.href} download>
-                {item.action}
-              </a>
-            </article>
-          ))}
         </div>
       </section>
 

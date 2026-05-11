@@ -1245,28 +1245,6 @@
   color: rgba(49, 67, 92, 0.78);
 }
 
-.downloadLink {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  min-height: 46px;
-  margin-top: 6px;
-  padding: 0 16px;
-  border-radius: 999px;
-  background:
-    linear-gradient(180deg, rgba(131, 194, 255, 0.96), rgba(55, 114, 244, 0.98));
-  color: #f5fbff;
-  font-weight: 650;
-  font-size: 0.92rem;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.34),
-    0 18px 30px rgba(71, 124, 221, 0.2);
-  transition:
-    transform 180ms ease,
-    background-color 180ms ease;
-}
-
 .zoneHeader {
   display: flex;
   justify-content: space-between;
@@ -2002,7 +1980,6 @@
   .prongNode:hover,
   .primary:hover,
   .secondary:hover,
-  .downloadLink:hover,
   .secondaryButton:hover,
   .formButton:hover {
     transform: translateY(-2px);
@@ -2022,7 +1999,6 @@
   }
 
   .primary:hover,
-  .downloadLink:hover,
   .formButton:hover {
     background:
       linear-gradient(180deg, rgba(146, 205, 255, 0.98), rgba(65, 124, 244, 0.98));

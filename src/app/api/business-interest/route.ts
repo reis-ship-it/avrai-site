@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
   const email = cleanText(payload.email, 320).toLowerCase();
   const city = cleanText(payload.city, 160);
   const businessType = cleanText(payload.businessType, 120);
-  const downloadInterest = cleanText(payload.downloadInterest, 120);
+  const accessInterest = cleanText(payload.accessInterest, 120);
   const notes = cleanText(payload.notes, 1800);
 
   if (!businessName || !ownerName || !email) {
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
     [
       `Business: ${businessName}`,
       `Business type: ${businessType}`,
-      `Download interest: ${downloadInterest}`,
+      `Access interest: ${accessInterest}`,
       `Notes: ${notes}`,
     ].join("\n"),
   );
