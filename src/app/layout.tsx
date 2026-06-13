@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
-import {
-  IBM_Plex_Mono,
-  Manrope,
-  Space_Grotesk,
-} from "next/font/google";
+import { IBM_Plex_Mono, Manrope, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const displayFont = Space_Grotesk({
@@ -15,7 +11,7 @@ const displayFont = Space_Grotesk({
 const bodyFont = Manrope({
   variable: "--font-body",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const monoFont = IBM_Plex_Mono({
@@ -25,9 +21,28 @@ const monoFont = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AVRAI",
+  title: {
+    default: "AVRAI",
+    template: "%s | AVRAI",
+  },
   description:
-    "AVRAI is building privacy-first discovery and model infrastructure for places, plans, operator workflows, and world-model-driven recommendations.",
+    "AVRAI builds community intelligence for people, places, businesses, events, and real-world coordination.",
+  metadataBase: new URL("https://avrai.org"),
+  openGraph: {
+    title: "AVRAI",
+    description:
+      "Community intelligence for people, places, businesses, events, and real-world coordination.",
+    url: "https://avrai.org",
+    siteName: "AVRAI",
+    images: [
+      {
+        url: "/avrai-logo.png",
+        width: 1024,
+        height: 1024,
+        alt: "AVRAI logo",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
