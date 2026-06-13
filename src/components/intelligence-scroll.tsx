@@ -19,11 +19,10 @@ const intelligenceWords = [
 ];
 
 export function IntelligenceScroll() {
-  const segmentSize = 100 / (intelligenceWords.length - 1);
-
   return (
     <section
       className={styles.scrollHero}
+      data-intelligence-scroll
       style={
         {
           "--scroll-steps": String(intelligenceWords.length + 1),
@@ -38,19 +37,16 @@ export function IntelligenceScroll() {
               {intelligenceWords.map((word, index) => {
                 const isFirst = index === 0;
                 const isLast = index === intelligenceWords.length - 1;
-                const rangeStart = Math.max(0, (index - 0.72) * segmentSize);
-                const rangeEnd = Math.min(100, (index + 0.72) * segmentSize);
 
                 return (
                   <span
-                    className={`${styles.scrollWordSlot} ${
-                      isFirst ? styles.scrollWordSlotFirst : ""
-                    } ${isLast ? styles.scrollWordSlotLast : ""}`}
+                    className={styles.scrollWordSlot}
+                    data-intelligence-word
                     key={word}
                     style={
                       {
-                        "--word-enter": `${rangeStart.toFixed(2)}%`,
-                        "--word-exit": `${rangeEnd.toFixed(2)}%`,
+                        opacity: isFirst ? 1 : 0,
+                        zIndex: isLast ? 2 : 1,
                       } as CSSProperties
                     }
                   >

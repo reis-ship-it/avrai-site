@@ -196,7 +196,6 @@
 .scrollHero {
   position: relative;
   min-height: calc(var(--scroll-steps) * 56vh);
-  view-timeline: --intelligence-carousel block;
 }
 
 .scrollHeroInner {
@@ -254,66 +253,14 @@
   overflow-wrap: normal;
   text-wrap: balance;
   transform: translate3d(0, 0.28em, 0);
-  animation: stackedWordFade linear both;
-  animation-range: contain var(--word-enter) contain var(--word-exit);
-  animation-timeline: --intelligence-carousel;
+  transition:
+    opacity 120ms linear,
+    transform 120ms linear;
   will-change: opacity, transform;
-}
-
-.scrollWordSlotFirst {
-  animation-name: stackedWordFadeFirst;
-}
-
-.scrollWordSlotLast {
-  animation-name: stackedWordFadeLast;
 }
 
 .scrollFixedWord {
   color: #ffffff;
-}
-
-@keyframes stackedWordFade {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, 0.28em, 0);
-  }
-
-  42%,
-  58% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translate3d(0, -0.28em, 0);
-  }
-}
-
-@keyframes stackedWordFadeFirst {
-  0%,
-  58% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translate3d(0, -0.28em, 0);
-  }
-}
-
-@keyframes stackedWordFadeLast {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, 0.28em, 0);
-  }
-
-  42%,
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
 }
 
 .postCarouselStatement {

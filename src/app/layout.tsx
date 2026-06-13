@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { IBM_Plex_Mono, Manrope, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
@@ -55,7 +56,10 @@ export default function RootLayout({
       lang="en"
       className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <Script src="/intelligence-scroll.js" strategy="beforeInteractive" />
+      </body>
     </html>
   );
 }
