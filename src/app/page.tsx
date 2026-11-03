@@ -17,7 +17,6 @@ export default function Home() {
         </div>
 
         <div className={styles.showcaseCopy}>
-          <p className={styles.eyebrow}>AVRAI / EARLY ACCESS</p>
           <h1 id="home-title">Real life has context.</h1>
           <p>
             We’re building a more thoughtful way to find places and plans that
