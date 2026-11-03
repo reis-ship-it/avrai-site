@@ -1,56 +1,25 @@
 import type { Metadata } from "next";
-import Script from "next/script";
-import { IBM_Plex_Mono, Manrope, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
-const displayFont = Space_Grotesk({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const bodyFont = Manrope({
-  variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const monoFont = IBM_Plex_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-});
+const description =
+  "AVRAI is building a more thoughtful way to discover places and make plans that fit your real-world context.";
 
 export const metadata: Metadata = {
   applicationName: "AVRAI",
   title: {
-    default: "AVRAI",
+    default: "AVRAI — Places and plans that fit the moment",
     template: "%s | AVRAI",
   },
-  description:
-    "AVRAI is an intelligence layer for real life, helping people, businesses, communities, and agents understand context, choose better next steps, and improve through feedback.",
-  metadataBase: new URL("https://avrai.org"),
-  alternates: {
-    canonical: "https://avrai.org",
-  },
-  keywords: [
-    "AVRAI",
-    "real-world intelligence",
-    "community intelligence",
-    "business context",
-    "local discovery",
-    "agent context",
-    "feedback loops",
-  ],
+  description,
+  metadataBase: new URL("https://www.avrai.org"),
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: "AVRAI",
-    description:
-      "An intelligence layer for real life: context, next steps, feedback, and clear control.",
-    url: "https://avrai.org",
+    title: "AVRAI — Places and plans that fit the moment",
+    description,
+    url: "https://www.avrai.org",
     siteName: "AVRAI",
     type: "website",
     images: [
@@ -58,45 +27,27 @@ export const metadata: Metadata = {
         url: "/avrai-logo.png",
         width: 1024,
         height: 1024,
-        alt: "AVRAI logo",
+        alt: "AVRAI",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AVRAI",
-    description:
-      "An intelligence layer for real life: context, next steps, feedback, and clear control.",
-    images: [
-      {
-        url: "/avrai-logo.png",
-        alt: "AVRAI logo",
-      },
-    ],
+    title: "AVRAI — Places and plans that fit the moment",
+    description,
+    images: ["/avrai-logo.png"],
   },
 };
 
-const structuredData = [
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "AVRAI",
-    url: "https://avrai.org",
-    email: "info@avrai.org",
-    logo: "https://avrai.org/avrai-logo.png",
-    description:
-      "AVRAI is an intelligence layer for real life, helping people, businesses, communities, and agents understand context, choose better next steps, and improve through feedback.",
-    sameAs: ["https://avrai-demos.vercel.app", "https://business.avrai.org"],
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "AVRAI",
-    url: "https://avrai.org",
-    description:
-      "Canonical AVRAI product explanation, trust boundaries, demos, business portal access, and waitlist.",
-  },
-];
+const organizationData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "AVRAI",
+  url: "https://www.avrai.org",
+  email: "info@avrai.org",
+  logo: "https://www.avrai.org/avrai-logo.png",
+  description,
+};
 
 export default function RootLayout({
   children,
@@ -104,17 +55,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}
-    >
+    <html lang="en">
       <body>
         {children}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }}
         />
-        <Script src="/intelligence-scroll.js" strategy="beforeInteractive" />
       </body>
     </html>
   );

@@ -1,104 +1,51 @@
 import type { ReactNode } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import styles from "@/app/page.module.css";
-import { primaryNav } from "@/components/site-content";
 
 type SiteShellProps = {
   children: ReactNode;
-  currentPath: string;
-  tone?: "home" | "contact" | "about" | "business";
+  currentPath: "/" | "/access";
 };
 
-type SitePageHeroProps = {
-  eyebrow: string;
-  title: string;
-  lede: string;
-  aside?: ReactNode;
-};
-
-const toneClassMap = {
-  home: styles.pageHome,
-  contact: styles.pageContact,
-  about: styles.pageAbout,
-  business: styles.pageBusiness,
-};
-
-export function SiteShell({
-  children,
-  currentPath,
-  tone = "home",
-}: SiteShellProps) {
+export function SiteShell({ children, currentPath }: SiteShellProps) {
   return (
-    <div className={`${styles.page} ${toneClassMap[tone]}`}>
+    <div className={styles.page}>
       <header className={styles.siteHeader}>
-        <Link className={styles.brandLink} href="/" aria-label="AVRAI home">
-          <Image
-            src="/avrai-logo.png"
-            alt="AVRAI logo"
-            width={48}
-            height={48}
-            className={styles.brandLogo}
-            priority
-          />
-          <div>
-            <p className={styles.brandName}>AVRAI</p>
-          </div>
+        <Link className={styles.brand} href="/" aria-label="AVRAI home">
+          AVRAI<span aria-hidden="true">.</span>
         </Link>
-
         <nav className={styles.nav} aria-label="Primary navigation">
-          {primaryNav.map((item) => (
-            item.external ? (
-              <a
-                key={item.href}
-                href={item.href}
-                className={styles.navLink}
-              >
-                {item.label}
-              </a>
-            ) : (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={
-                  currentPath === item.href
-                    ? `${styles.navLink} ${styles.navLinkActive}`
-                    : styles.navLink
-                }
-              >
-                {item.label}
-              </Link>
-            )
-          ))}
+          <Link className={styles.navLink} href="/#how-it-works">
+            How it works
+          </Link>
+          <Link
+            className={[
+              styles.navAction,
+              currentPath === "/access" && styles.navActionCurrent,
+            ]
+              .filter(Boolean)
+              .join(" ")}
+            href="/access"
+            aria-current={currentPath === "/access" ? "page" : undefined}
+          >
+            Request access
+          </Link>
         </nav>
       </header>
 
       <main className={styles.main}>{children}</main>
 
-      <footer className={styles.footer}>
-        <p className={styles.footerLine}>
-          <span>avrai © 2026</span>
-          <a href="mailto:info@avrai.org">info@avrai.org</a>
-        </p>
+      <footer className={styles.footer} id="contact">
+        <div className={styles.footerBrand}>AVRAI</div>
+        <p>Real life has context.</p>
+        <div className={styles.footerLinks}>
+          <a href="mailto:info@avrai.org">Contact</a>
+          <a href="mailto:privacy@avrai.org">Privacy questions</a>
+          <a href="mailto:security@avrai.org">Security</a>
+          <a href="https://business.avrai.org/signup">For businesses</a>
+        </div>
+        <small>© {new Date().getFullYear()} AVRAI</small>
       </footer>
     </div>
-  );
-}
-
-export function SitePageHero({
-  eyebrow,
-  title,
-  lede,
-  aside,
-}: SitePageHeroProps) {
-  return (
-    <section className={styles.pageHero}>
-      <div className={styles.pageHeroCopy}>
-        <p className={styles.eyebrow}>{eyebrow}</p>
-        <h1>{title}</h1>
-        <p>{lede}</p>
-      </div>
-      {aside ? <aside className={styles.pageHeroAside}>{aside}</aside> : null}
-    </section>
   );
 }

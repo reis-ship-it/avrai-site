@@ -1,50 +1,29 @@
 # AVRAI
 
-AVRAI is an intelligence layer for real life. It helps people, businesses,
-communities, and agents understand context, choose better next steps, and
-improve through feedback while keeping action, privacy, and correction under
-clear control.
+AVRAI is building a more thoughtful way to discover places and make plans that
+fit real-world context. Its proposed approach considers details such as timing,
+company, and what someone needs in the moment, while leaving the next choice
+with the person.
 
-Canonical site: https://avrai.org
-Demo site: https://avrai-demos.vercel.app
-Business portal: https://business.avrai.org
-General contact: info@avrai.org
-Business contact: business@avrai.org
-Partnerships: partnerships@avrai.org
+## Public pages
 
-## What AVRAI is
+- https://www.avrai.org/ — overview and product direction.
+- https://www.avrai.org/access — early access request form.
+- https://business.avrai.org/signup — separate business account creation.
 
-AVRAI connects context across people, places, businesses, events, groups,
-timing, intent, and outcomes. The goal is real-world coordination: better
-plans, better local discovery, better business representation, and better
-feedback loops.
+The former `/about` page redirects to the overview's `#how-it-works` section.
+The former `/contact` page redirects to the footer's `#contact` section. The
+former `/business` page redirects to the business signup URL.
 
-## Who AVRAI is for
+## Access and contact
 
-- People: personal discovery, local planning, events, groups, and next steps.
-- Businesses: operator context, profiles, vibe, customer fit, and follow-up.
-- Communities: aggregate planning, relationship gaps, places, partners, and
-  coordination needs.
-- Agents and partners: bounded context, reviewable receipts, and controlled
-  action pathways.
+Submitting the `/access` form requests follow-up about possible access. It does
+not create an account, guarantee a place, or provide immediate access. General
+questions can go to info@avrai.org; privacy questions to privacy@avrai.org.
 
-## How AVRAI works
+## Evidence boundary
 
-1. Read context across real-world entities and moments.
-2. Suggest reviewable next steps.
-3. Learn from corrections, receipts, and outcomes.
-
-## Trust boundaries
-
-AVRAI should not be described as an unchecked automation layer or a generic LLM
-wrapper. Runtime OS owns action boundaries, consent, redaction, receipts, and
-correction paths. Public demos are controlled surfaces unless clearly labeled
-otherwise. Demos do not imply live action authority, empirical readiness, or
-raw personal data access.
-
-## Public status
-
-- avrai.org: canonical public explanation and contact.
-- avrai-demos.vercel.app: proof-by-example demos and research surfaces.
-- business.avrai.org: business portal and pilot operator flow.
-
+The public site describes a product direction and early access. It does not
+claim empirically validated outcomes, automatic external actions, or access to
+raw personal data. A form success message is not independent proof of storage
+or access approval.

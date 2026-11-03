@@ -1,15 +1,7 @@
 import type { MetadataRoute } from "next";
 
-const baseUrl = "https://avrai.org";
-
-const routes = [
-  "",
-  "/about",
-  "/business",
-  "/contact",
-  "/llms.txt",
-  "/agents.txt",
-];
+const baseUrl = "https://www.avrai.org";
+const routes = ["", "/access"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();

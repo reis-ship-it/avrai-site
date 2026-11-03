@@ -1,140 +1,89 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { IntelligenceScroll } from "@/components/intelligence-scroll";
 import { SiteShell } from "@/components/site-shell";
-import { productPillars } from "@/components/site-content";
-import { WaitlistIntakeForm } from "@/components/waitlist-intake-form";
 import styles from "./page.module.css";
 
-const realityRows = [
-  {
-    label: "People",
-    body: "What someone likes, needs, avoids, and returns to over time.",
-  },
-  {
-    label: "Places",
-    body: "Restaurants, cafes, museums, venues, neighborhoods, and local spaces.",
-  },
-  {
-    label: "Moments",
-    body: "Groups, timing, weather, events, energy, constraints, and intent.",
-  },
-  {
-    label: "Outcomes",
-    body: "Whether the plan worked, the visit fit, and the next choice improved.",
-  },
-];
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
-const pilotRows = [
+const principles = [
   {
-    title: "Businesses",
-    body: "Try the operator portal for business setup, context, actions, and support.",
-    href: "https://business.avrai.org",
-    cta: "Open business portal",
+    number: "01",
+    title: "The moment matters",
+    body: "Who you are with, when you are going, and what you need can change the right choice.",
   },
   {
-    title: "Users",
-    body: "Join the waitlist for personal discovery, local planning, and real-world coordination.",
-    href: "#waitlist",
-    cta: "Join waitlist",
+    number: "02",
+    title: "You choose the next step",
+    body: "Useful suggestions should help you decide, with room to change course or say no.",
   },
   {
-    title: "Partners",
-    body: "Talk about pilots, integrations, venues, institutions, and local ecosystem work.",
-    href: "/contact",
-    cta: "Contact AVRAI",
+    number: "03",
+    title: "Feedback has a purpose",
+    body: "What worked and what did not can help make future suggestions more relevant.",
   },
 ];
 
 export default function Home() {
   return (
-    <SiteShell currentPath="/" tone="home">
-      <IntelligenceScroll />
-
-      <section className={styles.postCarouselStatement}>
-        <p>
-          One context model for local discovery, planning, business
-          relationships, and shared real-world decisions.
-        </p>
-      </section>
-
-      <section className={styles.canonicalSection} id="what-is-avrai">
-        <div>
-          <p className={styles.eyebrow}>What is AVRAI?</p>
-          <h1>AVRAI is an intelligence layer for real life.</h1>
-        </div>
-        <div className={styles.canonicalCopy}>
-          <p>
-            AVRAI helps people, businesses, and communities understand context,
-            choose better next steps, and improve through feedback while keeping
-            action, privacy, and correction under clear control.
+    <SiteShell currentPath="/">
+      <section className={styles.hero} aria-labelledby="home-title">
+        <div className={styles.heroCopy}>
+          <p className={styles.eyebrow}>AVRAI · Early access</p>
+          <h1 id="home-title">Find places and plans that fit the moment.</h1>
+          <p className={styles.heroLede}>
+            We’re building AVRAI to help people decide where to go and what to
+            do with their timing, company, and context in mind.
           </p>
-          <div className={styles.inlineActions}>
-            <a className={styles.primaryAction} href="#waitlist">
-              Join the waitlist
-            </a>
-            <Link className={styles.secondaryAction} href="/about">
-              Learn more
+          <div className={styles.actions}>
+            <Link className={styles.primaryAction} href="/access">
+              Request access <span aria-hidden="true">↗</span>
             </Link>
+            <a className={styles.textAction} href="#how-it-works">
+              See what we’re building
+            </a>
           </div>
         </div>
-      </section>
-
-      <section className={styles.productStrip}>
-        <div className={styles.sectionHeader}>
-          <p className={styles.eyebrow}>What we are building</p>
-          <h2>Apps, OS, and Model.</h2>
-        </div>
-
-        <div className={styles.productRows}>
-          {productPillars.map((item) => (
-            <Link className={styles.productRow} href={item.href} key={item.title}>
-              <span>{item.title}</span>
-              <p>{item.body}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.realitySection}>
-        <div>
-          <p className={styles.eyebrow}>Reality, contextualized</p>
-          <h2>AVRAI understands context across real situations.</h2>
+        <div className={styles.heroAside} aria-label="An example of real-world context">
+          <p className={styles.asideLabel}>A familiar decision</p>
+          <p className={styles.asideTitle}>Where should we go after the show?</p>
           <p>
-            A restaurant is different at lunch, after a concert, for a date,
-            with a group, or when someone needs a quiet place to think. AVRAI is
-            designed for that kind of context.
+            Somewhere nearby, still open, and comfortable for the people you’re
+            with. The details change the answer.
           </p>
         </div>
+      </section>
 
-        <div className={styles.realityList}>
-          {realityRows.map((item) => (
-            <article key={item.label}>
-              <h3>{item.label}</h3>
-              <p>{item.body}</p>
+      <section className={styles.explainer} id="how-it-works">
+        <div className={styles.sectionHeading}>
+          <p className={styles.eyebrow}>What we’re building</p>
+          <h2>Better decisions start with better context.</h2>
+          <p>
+            AVRAI is being designed around real situations, useful choices, and
+            the ability to correct what it gets wrong.
+          </p>
+        </div>
+        <div className={styles.principles}>
+          {principles.map((principle) => (
+            <article className={styles.principle} key={principle.number}>
+              <span className={styles.principleNumber}>{principle.number}</span>
+              <h3>{principle.title}</h3>
+              <p>{principle.body}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className={styles.pilotSection} id="pilot">
-        <div className={styles.sectionHeader}>
-          <p className={styles.eyebrow}>Pilot access</p>
-          <h2>Start with the path that matches you.</h2>
+      <section className={styles.closing}>
+        <div>
+          <p className={styles.eyebrow}>Be part of the pilot</p>
+          <h2>Interested in trying AVRAI?</h2>
+          <p>Tell us you’d like to hear about access as the pilot develops.</p>
         </div>
-        <div className={styles.pilotGrid}>
-          {pilotRows.map((item) => (
-            <article className={styles.pilotCard} key={item.title}>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-              <a href={item.href}>{item.cta}</a>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.waitlistSection} id="waitlist">
-        <p>join the waitlist</p>
-        <WaitlistIntakeForm />
+        <Link className={styles.primaryAction} href="/access">
+          Request access <span aria-hidden="true">↗</span>
+        </Link>
       </section>
     </SiteShell>
   );
