@@ -2,7 +2,7 @@
 
 Canonical guidance: https://www.avrai.org/agents.txt
 
-AVRAI is developing tools to help people find places and plans that fit their
-real-world context. The public site has an overview at `/` and an early access
-request at `/access`. A request does not create an account or guarantee access.
+AVRAI is developing a way to find places and plans that fit real-life context.
+The public site has a visual landing page at `/` and an early access request
+at `/access`. A request does not create an account or guarantee access.
 Business account creation is separate: https://business.avrai.org/signup

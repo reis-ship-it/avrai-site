@@ -6,10 +6,11 @@ product code lives in the separate `reis-ship-it/avrai` repository.
 
 ## Routes
 
-- `/` explains the product direction and links to the access request.
+- `/` is a dark visual landing page with an animated knot, brief introduction,
+  and link to the access request.
 - `/access` collects an early access request. It does not create an account or
   guarantee access.
-- `/about` redirects to `/#how-it-works`.
+- `/about` redirects to `/`.
 - `/contact` redirects to `/#contact`, where the footer provides email links.
 - `/business` redirects to `https://business.avrai.org/signup`, the separate
   business account creation flow.

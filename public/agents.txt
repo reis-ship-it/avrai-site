@@ -5,24 +5,24 @@ or evidence authority.
 
 ## Public description
 
-AVRAI is building a way to help people find places and make plans with the
-timing, company, and other real-world context of a decision in mind. People
-should be able to choose their next step and correct what does not fit.
+AVRAI is building a more thoughtful way to find places and plans that fit the
+moment. The public home page is a visual introduction with a link to request
+early access.
 
 ## Routes
 
-- Overview: https://www.avrai.org/
+- Visual landing page: https://www.avrai.org/
 - Early access request: https://www.avrai.org/access
 - Business account creation: https://business.avrai.org/signup
 - General contact: info@avrai.org
 - Privacy contact: privacy@avrai.org
 - Sitemap: https://www.avrai.org/sitemap.xml
 
-Previous routes redirect: `/about` to `/#how-it-works`, `/contact` to
+Previous routes redirect: `/about` to `/`, `/contact` to
 `/#contact`, and `/business` to the separate business signup above.
 
 ## Interpretation boundaries
 
 The `/access` form is a request to hear about access. It does not create an
-account, reserve a place, or provide immediate access. The public pages and
-demos do not establish empirically validated results or live action authority.
+account, reserve a place, or provide immediate access. The public pages do not
+establish empirically validated results or live action authority.

@@ -1,17 +1,16 @@
 # AVRAI
 
-AVRAI is building a more thoughtful way to discover places and make plans that
-fit real-world context. Its proposed approach considers details such as timing,
-company, and what someone needs in the moment, while leaving the next choice
-with the person.
+AVRAI is building a more thoughtful way to find places and plans that fit the
+moment. Its public site is a visual introduction with a route to request early
+access.
 
 ## Public pages
 
-- https://www.avrai.org/ — overview and product direction.
+- https://www.avrai.org/ — visual landing page.
 - https://www.avrai.org/access — early access request form.
 - https://business.avrai.org/signup — separate business account creation.
 
-The former `/about` page redirects to the overview's `#how-it-works` section.
+The former `/about` page redirects to `/`.
 The former `/contact` page redirects to the footer's `#contact` section. The
 former `/business` page redirects to the business signup URL.
 

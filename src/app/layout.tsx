@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 const description =
-  "AVRAI is building a more thoughtful way to discover places and make plans that fit your real-world context.";
+  "AVRAI is building a more thoughtful way to find places and plans that fit the moment.";
 
 export const metadata: Metadata = {
   applicationName: "AVRAI",
   title: {
-    default: "AVRAI — Places and plans that fit the moment",
+    default: "AVRAI — Real life has context",
     template: "%s | AVRAI",
   },
   description,
@@ -17,26 +17,21 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "AVRAI — Places and plans that fit the moment",
+    title: "AVRAI — Real life has context",
     description,
     url: "https://www.avrai.org",
     siteName: "AVRAI",
     type: "website",
-    images: [
-      {
-        url: "/avrai-logo.png",
-        width: 1024,
-        height: 1024,
-        alt: "AVRAI",
-      },
-    ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "AVRAI — Places and plans that fit the moment",
+    card: "summary",
+    title: "AVRAI — Real life has context",
     description,
-    images: ["/avrai-logo.png"],
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#08090b",
 };
 
 const organizationData = {
@@ -45,7 +40,6 @@ const organizationData = {
   name: "AVRAI",
   url: "https://www.avrai.org",
   email: "info@avrai.org",
-  logo: "https://www.avrai.org/avrai-logo.png",
   description,
 };
 
