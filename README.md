@@ -1,65 +1,49 @@
-# Avrai Site
+# AVRAI Public Site
 
-Public website for `avrai.org`, built as a standalone Next.js project for deployment on Vercel.
+This standalone Next.js site is the public introduction to AVRAI. The canonical
+host is `https://www.avrai.org`; `https://avrai.org` redirects there. The AVRAI
+product code lives in the separate `reis-ship-it/avrai` repository.
 
-## Stack
+## Routes
 
-- Next.js App Router
-- TypeScript
-- ESLint
-- Vercel-ready deployment target
+- `/` is a dark visual landing page with an animated knot, brief introduction,
+  and link to the access request.
+- `/access` collects an early access request. It does not create an account or
+  guarantee access.
+- `/about` redirects to `/`.
+- `/contact` redirects to `/#contact`, where the footer provides email links.
+- `/business` redirects to `https://business.avrai.org/signup`, the separate
+  business account creation flow.
+- `POST /api/waitlist` accepts the access request from the `/access` form.
 
-## Local Development
+The sitemap lists only `/` and `/access`. The old page routes remain as
+redirects for existing links.
 
-Install dependencies and start the dev server:
+## Local development
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`.
+Open `http://localhost:3000`. Before deploying, run `npm run lint` and
+`npm run build`. This repository has no separate test script.
 
-## Production Build
+## Access request delivery
 
-```bash
-npm run build
-npm run start
-```
+The form in `src/components/waitlist-intake-form.tsx` submits to the same-origin
+`/api/waitlist` route. The route forwards the request to `WAITLIST_WEBHOOK_URL`
+when set, otherwise `NEXT_PUBLIC_WAITLIST_SCRIPT_URL`, otherwise its configured
+Apps Script fallback. The repository includes
+`docs/google-apps-script-waitlist.gs` as a reference template.
 
-## Deployment
+For a normal submission, the route reports success after the configured
+endpoint returns an acceptable HTTP response. It does not independently verify
+a Google Sheet row, account creation, or access approval. Verify the receiving
+system before claiming that a particular request was recorded.
 
-Connect the repo to Vercel, then attach:
+## Deployment boundary
 
-- `avrai.org`
-- `www.avrai.org`
-
-Only the website DNS records need to move to Vercel. Keep Google Workspace mail records in place.
-
-## Waitlist
-
-The public waitlist form is set up to submit to a Google Apps Script web app that writes directly into a Google Sheet.
-The `/business` page uses the same private intake endpoint with a business-specific form for owner claims, place details, desired customer/vibe direction, and node-agent interest.
-
-Set this environment variable in Vercel and locally:
-
-```bash
-NEXT_PUBLIC_WAITLIST_SCRIPT_URL=https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec
-```
-
-The site-side form lives in [`/Users/reisgordon/Websites/avrai-site/src/components/waitlist-form.tsx`](/Users/reisgordon/Websites/avrai-site/src/components/waitlist-form.tsx). The companion Apps Script template is in [`/Users/reisgordon/Websites/avrai-site/docs/google-apps-script-waitlist.gs`](/Users/reisgordon/Websites/avrai-site/docs/google-apps-script-waitlist.gs).
-
-Google setup:
-
-1. Open the target Google Sheet.
-2. Open `Extensions` -> `Apps Script`.
-3. Replace the default script with the contents of `docs/google-apps-script-waitlist.gs`.
-4. Deploy it as a web app:
-   - Execute as: `Me`
-   - Who has access: `Anyone`
-5. Copy the `/exec` URL into `NEXT_PUBLIC_WAITLIST_SCRIPT_URL`.
-
-## Notes
-
-- The existing `reis-ship-it/avrai` repository is a separate product/app codebase.
-- This repository is intended to be the marketing/public web presence for the domain.
+The site uses the existing Vercel `avrai-site` project. Preserve the separate
+`avrai-business` project and the Google Workspace mail records when changing
+domain or DNS settings.

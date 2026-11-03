@@ -1,0 +1,28 @@
+# AVRAI
+
+AVRAI is building a more thoughtful way to find places and plans that fit the
+moment. Its public site is a visual introduction with a route to request early
+access.
+
+## Public pages
+
+- https://www.avrai.org/ — visual landing page.
+- https://www.avrai.org/access — early access request form.
+- https://business.avrai.org/signup — separate business account creation.
+
+The former `/about` page redirects to `/`.
+The former `/contact` page redirects to the footer's `#contact` section. The
+former `/business` page redirects to the business signup URL.
+
+## Access and contact
+
+Submitting the `/access` form requests follow-up about possible access. It does
+not create an account, guarantee a place, or provide immediate access. General
+questions can go to info@avrai.org; privacy questions to privacy@avrai.org.
+
+## Evidence boundary
+
+The public site describes a product direction and early access. It does not
+claim empirically validated outcomes, automatic external actions, or access to
+raw personal data. A form success message is not independent proof of storage
+or access approval.

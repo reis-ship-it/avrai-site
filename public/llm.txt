@@ -1,0 +1,8 @@
+# AVRAI LLM summary
+
+Canonical summary: https://www.avrai.org/llms.txt
+
+AVRAI is building tools for real-world place discovery and planning. View the
+visual landing page at https://www.avrai.org/ and request early access at
+https://www.avrai.org/access. A request does not create an account or guarantee
+access. Business signup is at https://business.avrai.org/signup.

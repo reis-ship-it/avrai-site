@@ -1,0 +1,28 @@
+# AVRAI agent guidance
+
+This file describes AVRAI's public website. It does not grant product, action,
+or evidence authority.
+
+## Public description
+
+AVRAI is building a more thoughtful way to find places and plans that fit the
+moment. The public home page is a visual introduction with a link to request
+early access.
+
+## Routes
+
+- Visual landing page: https://www.avrai.org/
+- Early access request: https://www.avrai.org/access
+- Business account creation: https://business.avrai.org/signup
+- General contact: info@avrai.org
+- Privacy contact: privacy@avrai.org
+- Sitemap: https://www.avrai.org/sitemap.xml
+
+Previous routes redirect: `/about` to `/`, `/contact` to
+`/#contact`, and `/business` to the separate business signup above.
+
+## Interpretation boundaries
+
+The `/access` form is a request to hear about access. It does not create an
+account, reserve a place, or provide immediate access. The public pages do not
+establish empirically validated results or live action authority.

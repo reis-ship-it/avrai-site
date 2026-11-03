@@ -1,49 +1,46 @@
-import type { Metadata } from "next";
-import Script from "next/script";
-import { IBM_Plex_Mono, Manrope, Space_Grotesk } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-const displayFont = Space_Grotesk({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const bodyFont = Manrope({
-  variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const monoFont = IBM_Plex_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-});
+const description =
+  "AVRAI is building a more thoughtful way to find places and plans that fit the moment.";
 
 export const metadata: Metadata = {
+  applicationName: "AVRAI",
   title: {
-    default: "AVRAI",
+    default: "AVRAI — Real life has context",
     template: "%s | AVRAI",
   },
-  description:
-    "AVRAI builds community intelligence for people, places, businesses, events, and real-world coordination.",
-  metadataBase: new URL("https://avrai.org"),
-  openGraph: {
-    title: "AVRAI",
-    description:
-      "Community intelligence for people, places, businesses, events, and real-world coordination.",
-    url: "https://avrai.org",
-    siteName: "AVRAI",
-    images: [
-      {
-        url: "/avrai-logo.png",
-        width: 1024,
-        height: 1024,
-        alt: "AVRAI logo",
-      },
-    ],
+  description,
+  metadataBase: new URL("https://www.avrai.org"),
+  robots: {
+    index: true,
+    follow: true,
   },
+  openGraph: {
+    title: "AVRAI — Real life has context",
+    description,
+    url: "https://www.avrai.org",
+    siteName: "AVRAI",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "AVRAI — Real life has context",
+    description,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#08090b",
+};
+
+const organizationData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "AVRAI",
+  url: "https://www.avrai.org",
+  email: "info@avrai.org",
+  description,
 };
 
 export default function RootLayout({
@@ -52,13 +49,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}
-    >
+    <html lang="en">
       <body>
         {children}
-        <Script src="/intelligence-scroll.js" strategy="beforeInteractive" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }}
+        />
       </body>
     </html>
   );

@@ -48,13 +48,14 @@ export function WaitlistIntakeForm() {
         | null;
 
       if (!response.ok) {
-        throw new Error(result?.message ?? "Waitlist signup failed.");
+        throw new Error(result?.message ?? "We couldn't send your request. Please try again.");
       }
 
       form.reset();
       setStatus({
         type: "success",
-        message: "you are on the waitlist",
+        message:
+          "Request sent. We'll email you if there's a next step. Access is not confirmed yet.",
       });
     } catch (error) {
       setStatus({
@@ -62,7 +63,7 @@ export function WaitlistIntakeForm() {
         message:
           error instanceof Error
             ? error.message
-            : "Waitlist signup failed.",
+            : "We couldn't send your request. Please try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -70,35 +71,35 @@ export function WaitlistIntakeForm() {
   };
 
   return (
-    <form className={styles.waitlistForm} onSubmit={handleSubmit}>
-      <label className={styles.honeypot} aria-hidden="true">
-        <span>website</span>
-        <input
-          name="_honey"
-          type="text"
-          tabIndex={-1}
-          autoComplete="off"
-        />
-      </label>
+    <form className={styles.form} onSubmit={handleSubmit} aria-busy={isSubmitting}>
+      <div className={styles.formGrid}>
+        <label className={styles.honeypot} aria-hidden="true">
+          <span>website</span>
+          <input
+            name="_honey"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </label>
 
-      <label>
-        <span>name</span>
-        <input name="name" type="text" autoComplete="name" required />
-      </label>
+        <label className={styles.field}>
+          <span>Your name</span>
+          <input name="name" type="text" autoComplete="name" required />
+        </label>
 
-      <label>
-        <span>email</span>
-        <input name="email" type="email" autoComplete="email" required />
-      </label>
+        <label className={styles.field}>
+          <span>Email address</span>
+          <input name="email" type="email" autoComplete="email" required />
+        </label>
 
-      <label>
-        <span>company</span>
-        <input name="company" type="text" autoComplete="organization" />
-      </label>
+        <label className={`${styles.field} ${styles.fieldWide}`}>
+          <span>Company or organization (optional)</span>
+          <input name="company" type="text" autoComplete="organization" />
+        </label>
 
-      <label className={styles.interestField}>
-        <span>interest</span>
-        <span className={styles.waitlistSelectWrap}>
+        <label className={`${styles.field} ${styles.fieldWide}`}>
+          <span>What are you interested in?</span>
           <select name="interest" defaultValue={interestOptions[0]} required>
             {interestOptions.map((interest) => (
               <option key={interest} value={interest}>
@@ -106,15 +107,15 @@ export function WaitlistIntakeForm() {
               </option>
             ))}
           </select>
-        </span>
-      </label>
+        </label>
+      </div>
 
       <button
-        className={styles.waitlistSubmit}
+        className={styles.formButton}
         type="submit"
         disabled={isSubmitting}
       >
-        {isSubmitting ? "joining" : "join"}
+        {isSubmitting ? "Sending request…" : "Request access"}
       </button>
 
       {status ? (
@@ -124,7 +125,7 @@ export function WaitlistIntakeForm() {
               ? styles.formStatusSuccess
               : styles.formStatusError
           }`}
-          aria-live="polite"
+          role={status.type === "error" ? "alert" : "status"}
         >
           {status.message}
         </p>
