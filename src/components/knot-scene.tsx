@@ -6,27 +6,50 @@ type Three = typeof import("three");
 
 const SEGMENTS = 176;
 const SIDES = 14;
+const LOOP_COUNT = 3;
 const TWO_PI = Math.PI * 2;
 const ONYX = "#08090b";
 
-function pointOnKnot(t: number, openness: number, time: number) {
-  const lobe = 1.45 + openness * 0.7;
-  const span = 0.55 + openness * 0.03;
-  const twist = Math.sin(time * 0.45) * 0.12;
+function pointOnLoop(loop: number, t: number, openness: number, time: number) {
+  const breath = openness - 0.5;
+  const cosine = Math.cos(t);
+  const sine = Math.sin(t);
 
+  if (loop === 1) {
+    // The tilted middle ring passes through each outer ring's open center.
+    return [
+      (0.55 + 0.025 * breath) * cosine,
+      0.5 + (0.95 + 0.035 * breath) * sine,
+      (0.85 + 0.025 * breath) * cosine + 0.02 * Math.sin(3 * t + time * 0.2),
+    ] as const;
+  }
+
+  const side = loop === 0 ? -1 : 1;
+  const phase = loop === 0 ? 0 : 1.7;
+  const radius = 1.03 + 0.06 * breath;
   return [
-    span * (Math.sin(t) + lobe * Math.sin(2 * t + twist)),
-    span * (Math.cos(t) - lobe * Math.cos(2 * t + twist)),
-    -(0.3 + openness * 0.4) * Math.sin(3 * t + twist),
+    side * 0.82 + radius * cosine * (1 + 0.025 * Math.sin(3 * t + phase)),
+    -0.4 + radius * sine * (1 + 0.02 * Math.cos(2 * t + phase)),
+    side * 0.45 + 0.02 * Math.sin(2 * t + time * 0.25 + phase),
   ] as const;
 }
 
 // This vector remains visible until WebGL has drawn its first frame, and when
 // WebGL is unavailable or the context is lost.
-const fallbackPath = Array.from({ length: 161 }, (_, index) => {
-  const [x, y] = pointOnKnot((index / 160) * TWO_PI, 0.82, 0);
-  return `${index === 0 ? "M" : "L"}${(x * 78).toFixed(2)},${(-y * 78).toFixed(2)}`;
-}).join(" ") + " Z";
+const fallbackArcs = Array.from({ length: LOOP_COUNT * 12 }, (_, index) => {
+  const loop = Math.floor(index / 12);
+  const arc = index % 12;
+  const points = Array.from({ length: 17 }, (_, point) =>
+    pointOnLoop(loop, ((arc + point / 16) / 12) * TWO_PI, 0.82, 0),
+  );
+  return {
+    loop,
+    depth: points.reduce((sum, point) => sum + point[2], 0) / points.length,
+    path: points
+      .map(([x, y], point) => `${point === 0 ? "M" : "L"}${(x * 78).toFixed(2)},${(-y * 78).toFixed(2)}`)
+      .join(" "),
+  };
+}).sort((a, b) => a.depth - b.depth);
 
 function makeEnvironmentCanvas() {
   const canvas = document.createElement("canvas");
@@ -70,7 +93,7 @@ function makeEnvironmentCanvas() {
   return canvas;
 }
 
-function makeTube(THREE: Three) {
+function makeTube(THREE: Three, loop: number) {
   const points = Array.from({ length: SEGMENTS }, () => new THREE.Vector3());
   const tangents = Array.from({ length: SEGMENTS }, () => new THREE.Vector3());
   const normals = Array.from({ length: SEGMENTS }, () => new THREE.Vector3());
@@ -110,7 +133,7 @@ function makeTube(THREE: Three) {
 
   const update = (openness: number, time: number) => {
     for (let i = 0; i < SEGMENTS; i++) {
-      const [x, y, z] = pointOnKnot((i / SEGMENTS) * TWO_PI, openness, time);
+      const [x, y, z] = pointOnLoop(loop, (i / SEGMENTS) * TWO_PI, openness, time);
       points[i].set(x, y, z);
     }
 
@@ -138,7 +161,7 @@ function makeTube(THREE: Three) {
       closingNormal.dot(normals[0]),
     );
 
-    const radius = 0.16 + (1 - openness) * 0.015;
+    const radius = 0.14 + (1 - openness) * 0.005;
     for (let i = 0; i < SEGMENTS; i++) {
       const baseNormal = normals[i];
       const baseBinormal = binormals[i].crossVectors(tangents[i], baseNormal);
@@ -181,7 +204,7 @@ function mountScene(
   onUnavailable: () => void,
 ) {
   let renderer: import("three").WebGLRenderer | undefined;
-  let geometry: import("three").BufferGeometry | undefined;
+  let geometries: import("three").BufferGeometry[] = [];
   let material: import("three").MeshPhysicalMaterial | undefined;
   let environment: import("three").CanvasTexture | undefined;
   let environmentTarget: import("three").WebGLRenderTarget | undefined;
@@ -196,9 +219,9 @@ function mountScene(
   let elapsed = 0;
   let lastFrame = 0;
   let camera: import("three").PerspectiveCamera;
-  let mesh: import("three").Mesh;
+  let mesh: import("three").Group;
   let scene: import("three").Scene;
-  let updateTube: (openness: number, time: number) => void;
+  let updateTubes: (openness: number, time: number) => void;
 
   const resize = () => {
     if (!renderer || !camera || disposed || contextLost) return;
@@ -211,15 +234,15 @@ function mountScene(
     );
     renderer.setDrawingBufferSize(width, height, ratio);
     camera.aspect = width / height;
-    camera.position.z = Math.max(7.15, 7.15 / camera.aspect);
+    camera.position.z = Math.max(7.65, 7.65 / camera.aspect);
     camera.updateProjectionMatrix();
     if (motionQuery.matches) drawStill();
   };
 
   const drawStill = () => {
     if (!renderer || !scene || !camera || !mesh || contextLost || disposed) return;
-    updateTube(0.82, 0);
-    mesh.rotation.set(0.17, -0.27, -0.1);
+    updateTubes(0.82, 0);
+    mesh.rotation.set(0.17, 0.15, -0.1);
     renderer.render(scene, camera);
     onReady();
   };
@@ -230,11 +253,11 @@ function mountScene(
     elapsed += lastFrame ? Math.min((now - lastFrame) / 1000, 0.06) : 0;
     lastFrame = now;
     const openness = 0.5 + 0.5 * Math.sin(elapsed * 0.52 + 0.9);
-    updateTube(openness, elapsed);
+    updateTubes(openness, elapsed);
     mesh.rotation.set(
       0.17 + 0.11 * Math.sin(elapsed * 0.24),
-      -0.27 + 0.23 * Math.sin(elapsed * 0.18),
-      -0.1 + elapsed * 0.045,
+      0.15 + 0.11 * Math.sin(elapsed * 0.18),
+      -0.1 + elapsed * 0.028,
     );
     renderer.render(scene, camera);
   };
@@ -282,7 +305,7 @@ function mountScene(
     motionQuery.removeEventListener("change", updatePlayback);
     canvas.removeEventListener("webglcontextlost", onContextLost);
     canvas.removeEventListener("webglcontextrestored", onContextRestored);
-    geometry?.dispose();
+    geometries.forEach((geometry) => geometry.dispose());
     material?.dispose();
     environmentTarget?.dispose();
     environment?.dispose();
@@ -300,7 +323,7 @@ function mountScene(
     scene = new THREE.Scene();
     scene.background = new THREE.Color(ONYX);
     camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
-    camera.position.set(0, 0, 7.15);
+    camera.position.set(0, 0, 7.65);
 
     environment = new THREE.CanvasTexture(makeEnvironmentCanvas());
     environment.mapping = THREE.EquirectangularReflectionMapping;
@@ -308,9 +331,9 @@ function mountScene(
     pmrem = new THREE.PMREMGenerator(renderer);
     environmentTarget = pmrem.fromEquirectangular(environment);
 
-    const tube = makeTube(THREE);
-    geometry = tube.geometry;
-    updateTube = tube.update;
+    const tubes = Array.from({ length: LOOP_COUNT }, (_, loop) => makeTube(THREE, loop));
+    geometries = tubes.map((tube) => tube.geometry);
+    updateTubes = (openness, time) => tubes.forEach((tube) => tube.update(openness, time));
     material = new THREE.MeshPhysicalMaterial({
       color: 0xe6ebf1,
       metalness: 1,
@@ -324,7 +347,8 @@ function mountScene(
       clearcoat: 0.25,
       clearcoatRoughness: 0.08,
     });
-    mesh = new THREE.Mesh(geometry, material);
+    mesh = new THREE.Group();
+    geometries.forEach((geometry) => mesh.add(new THREE.Mesh(geometry, material)));
     scene.add(mesh);
 
     canvas.addEventListener("webglcontextlost", onContextLost);
@@ -389,7 +413,7 @@ export function KnotScene() {
     <div
       ref={hostRef}
       role="img"
-      aria-label="A reflective chrome knot slowly tightens and loosens against an onyx background"
+      aria-label="Three interlinked reflective chrome loops slowly breathe and rotate against an onyx background"
       style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden", background: ONYX }}
     >
       <canvas
@@ -398,11 +422,16 @@ export function KnotScene() {
         style={{ display: "block", position: "absolute", inset: 0, width: "100%", height: "100%", opacity: ready ? 1 : 0 }}
       />
       <svg
+        className="avrai-knot-fallback-art"
         viewBox="-180 -180 360 360"
         aria-hidden="true"
         style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: ready ? 0 : 1 }}
       >
         <style>{`
+          .avrai-knot-fallback-art { transform-origin: center; }
+          @media (min-width: 1241px) {
+            .avrai-knot-fallback-art { transform: scale(.82); }
+          }
           @keyframes avrai-knot-fallback-breathe {
             0%, 100% { transform: rotate(-8deg) scale(.89, .9); }
             50% { transform: rotate(8deg) scale(1.04, 1.06); }
@@ -417,7 +446,7 @@ export function KnotScene() {
           }
         `}</style>
         <defs>
-          <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id={gradientId} x1="-150" y1="-120" x2="150" y2="120" gradientUnits="userSpaceOnUse">
             <stop offset="0" stopColor="#eceff7" />
             <stop offset=".22" stopColor="#b4faff" />
             <stop offset=".45" stopColor="#f6f9ff" />
@@ -427,9 +456,12 @@ export function KnotScene() {
           </linearGradient>
         </defs>
         <g className="avrai-knot-fallback-motion" style={{ animationPlayState: ready ? "paused" : "running" }}>
-          <path d={fallbackPath} fill="none" stroke="#272e3a" strokeWidth="29" strokeLinejoin="round" />
-          <path d={fallbackPath} fill="none" stroke={`url(#${gradientId})`} strokeWidth="20" strokeLinejoin="round" />
-          <path d={fallbackPath} fill="none" stroke="#ffffff" strokeOpacity=".36" strokeWidth="3" strokeLinejoin="round" />
+          {fallbackArcs.map((arc, index) => (
+            <path key={`shadow-${index}`} d={arc.path} fill="none" stroke="#272e3a" strokeWidth="27" strokeLinecap="round" strokeLinejoin="round" />
+          ))}
+          {fallbackArcs.map((arc, index) => (
+            <path key={`chrome-${index}`} d={arc.path} fill="none" stroke={`url(#${gradientId})`} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round" />
+          ))}
         </g>
       </svg>
     </div>

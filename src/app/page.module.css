@@ -63,7 +63,7 @@
 .knotStage {
   position: absolute;
   z-index: 0;
-  inset: -7% -6% -4% 35%;
+  inset: -7% -8% -4% 42%;
 }
 
 .knotStage canvas {
@@ -314,15 +314,34 @@
   font-weight: 650;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1240px) {
+  .showcase {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100svh - 88px);
+  }
+
   .knotStage {
-    inset: -3% -17% 12% 15%;
+    position: relative;
+    inset: auto;
+    flex: none;
+    width: 100%;
+    height: clamp(340px, 52svh, 510px);
+  }
+
+  .showcaseCopy {
+    flex: 1;
+    justify-content: flex-start;
+    min-height: 0;
+    padding-bottom: 70px;
   }
 
   .showcaseCopy h1 {
-    max-width: 480px;
+    max-width: 700px;
   }
+}
 
+@media (max-width: 900px) {
   .accessPage {
     grid-template-columns: 1fr;
     gap: 54px;
