@@ -1,0 +1,11 @@
+# AVRAI LLM summary
+
+Canonical machine-readable AVRAI summary:
+
+https://avrai.org/llms.txt
+
+AVRAI is an intelligence layer for real life. It helps people, businesses,
+communities, and agents understand context, choose better next steps, and
+improve through feedback while keeping action, privacy, and correction under
+clear control.
+

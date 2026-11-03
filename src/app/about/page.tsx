@@ -2,6 +2,62 @@ import type { Metadata } from "next";
 import { SiteShell } from "@/components/site-shell";
 import styles from "@/app/page.module.css";
 
+const audienceRows = [
+  {
+    title: "People",
+    body: "Find plans, places, events, groups, and next steps that fit the moment.",
+  },
+  {
+    title: "Businesses",
+    body: "Represent what a business is, who it serves, and what should happen next.",
+  },
+  {
+    title: "Communities",
+    body: "See local relationships, gaps, demand, and coordination paths without flattening reality.",
+  },
+  {
+    title: "Agents",
+    body: "Use bounded context, receipts, and permissioned actions instead of guessing from a prompt.",
+  },
+];
+
+const workflowRows = [
+  {
+    label: "1",
+    title: "Read context",
+    body: "AVRAI connects people, places, businesses, groups, timing, intent, and outcomes.",
+  },
+  {
+    label: "2",
+    title: "Suggest next steps",
+    body: "The system turns context into reviewable options, not automatic authority.",
+  },
+  {
+    label: "3",
+    title: "Learn from feedback",
+    body: "Corrections, receipts, and real outcomes improve future coordination.",
+  },
+];
+
+const trustRows = [
+  {
+    title: "Consent",
+    body: "People and businesses should know what is being used and why.",
+  },
+  {
+    title: "Control",
+    body: "Pages can submit and review actions, but Runtime OS owns action boundaries.",
+  },
+  {
+    title: "Correction",
+    body: "Representations need clear paths to review, fix, challenge, and update.",
+  },
+  {
+    title: "No hidden authority",
+    body: "Demos and agents stay bounded until evidence, permissions, and receipts support more.",
+  },
+];
+
 const productSections = [
   {
     id: "apps",
@@ -96,18 +152,75 @@ const philosophySections = [
 export const metadata: Metadata = {
   title: "About",
   description:
-    "About AVRAI products, services, philosophy, and team direction.",
+    "What AVRAI is, who it is for, how it works, and how it keeps intelligence bounded by trust, privacy, and correction.",
 };
 
 export default function AboutPage() {
   return (
     <SiteShell currentPath="/about" tone="about">
       <section className={styles.aboutHero}>
-        <h1>AVRAI is the intelligence model of real life.</h1>
+        <h1>
+          AVRAI is the intelligence model of real life. AVRAI is not an LLM
+          wrapper.
+        </h1>
         <p>
-          Our direction is simple: help people, places, businesses, groups, and
-          agents coordinate in ways that improve real outcomes.
+          AVRAI helps people, businesses, and communities understand context,
+          choose better next steps, and improve through feedback while keeping
+          action, privacy, and correction under clear control.
         </p>
+      </section>
+
+      <section className={styles.audienceSection} id="who-it-is-for">
+        <div className={styles.sectionHeader}>
+          <p className={styles.eyebrow}>Who it is for</p>
+          <h2>People, businesses, communities, and agents.</h2>
+        </div>
+        <div className={styles.compactGrid}>
+          {audienceRows.map((item) => (
+            <article className={styles.compactCard} key={item.title}>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className={styles.workflowSection} id="how-it-works">
+        <div className={styles.sectionHeader}>
+          <p className={styles.eyebrow}>How it works</p>
+          <h2>Context becomes options, then feedback becomes better context.</h2>
+        </div>
+        <div className={styles.workflowList}>
+          {workflowRows.map((item) => (
+            <article key={item.title}>
+              <span>{item.label}</span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className={styles.trustSection} id="trust-and-privacy">
+        <div>
+          <p className={styles.eyebrow}>Trust and privacy</p>
+          <h2>Useful intelligence needs boundaries.</h2>
+          <p>
+            AVRAI is designed around reviewable context, consent, receipts,
+            correction, and controlled action. The public demos show the shape
+            of the system without claiming live authority or hidden certainty.
+          </p>
+        </div>
+        <div className={styles.trustDiagram} aria-label="AVRAI trust controls">
+          {trustRows.map((item) => (
+            <article key={item.title}>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className={styles.aboutInteractiveSection}>

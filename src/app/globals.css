@@ -1,16 +1,16 @@
 :root {
-  --background: #f7f6f0;
-  --foreground: #101820;
-  --muted: #5f6f77;
-  --line: rgba(16, 24, 32, 0.12);
-  --panel: rgba(255, 255, 255, 0.78);
+  --background: #eef1f5;
+  --foreground: #151922;
+  --muted: #5d6673;
+  --line: rgba(31, 41, 55, 0.14);
+  --panel: rgba(255, 255, 255, 0.82);
   --panel-strong: #ffffff;
-  --ink: #101820;
-  --blue: #2468d8;
-  --green: #16836f;
-  --coral: #d95d3f;
-  --gold: #c28b1c;
-  --shadow: rgba(16, 24, 32, 0.12);
+  --ink: #151922;
+  --blue: #1f7cff;
+  --neutral: #6b7280;
+  --neutral-strong: #4b5563;
+  --neutral-deep: #374151;
+  --shadow: rgba(31, 41, 55, 0.12);
 }
 
 html {
@@ -27,7 +27,7 @@ body {
 body {
   min-height: 100%;
   color: var(--foreground);
-  background: #02040a;
+  background: var(--background);
   font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

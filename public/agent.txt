@@ -1,0 +1,10 @@
+# AVRAI agent summary
+
+Canonical agent guidance:
+
+https://avrai.org/agents.txt
+
+AVRAI is an intelligence layer for real life. Treat avrai.org as the canonical
+public explanation, avrai-demos.vercel.app as controlled proof-by-example, and
+business.avrai.org as the business portal.
+

@@ -22,19 +22,37 @@ const monoFont = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  applicationName: "AVRAI",
   title: {
     default: "AVRAI",
     template: "%s | AVRAI",
   },
   description:
-    "AVRAI builds community intelligence for people, places, businesses, events, and real-world coordination.",
+    "AVRAI is an intelligence layer for real life, helping people, businesses, communities, and agents understand context, choose better next steps, and improve through feedback.",
   metadataBase: new URL("https://avrai.org"),
+  alternates: {
+    canonical: "https://avrai.org",
+  },
+  keywords: [
+    "AVRAI",
+    "real-world intelligence",
+    "community intelligence",
+    "business context",
+    "local discovery",
+    "agent context",
+    "feedback loops",
+  ],
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: "AVRAI",
     description:
-      "Community intelligence for people, places, businesses, events, and real-world coordination.",
+      "An intelligence layer for real life: context, next steps, feedback, and clear control.",
     url: "https://avrai.org",
     siteName: "AVRAI",
+    type: "website",
     images: [
       {
         url: "/avrai-logo.png",
@@ -44,7 +62,41 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "AVRAI",
+    description:
+      "An intelligence layer for real life: context, next steps, feedback, and clear control.",
+    images: [
+      {
+        url: "/avrai-logo.png",
+        alt: "AVRAI logo",
+      },
+    ],
+  },
 };
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "AVRAI",
+    url: "https://avrai.org",
+    email: "info@avrai.org",
+    logo: "https://avrai.org/avrai-logo.png",
+    description:
+      "AVRAI is an intelligence layer for real life, helping people, businesses, communities, and agents understand context, choose better next steps, and improve through feedback.",
+    sameAs: ["https://avrai-demos.vercel.app", "https://business.avrai.org"],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "AVRAI",
+    url: "https://avrai.org",
+    description:
+      "Canonical AVRAI product explanation, trust boundaries, demos, business portal access, and waitlist.",
+  },
+];
 
 export default function RootLayout({
   children,
@@ -58,6 +110,10 @@ export default function RootLayout({
     >
       <body>
         {children}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         <Script src="/intelligence-scroll.js" strategy="beforeInteractive" />
       </body>
     </html>

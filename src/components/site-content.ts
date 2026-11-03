@@ -1,4 +1,5 @@
 export const primaryNav = [
+  { href: "https://avrai-demos.vercel.app", label: "Demos", external: true },
   { href: "/contact", label: "Contact" },
   { href: "/about", label: "About" },
   { href: "/business", label: "Business" },

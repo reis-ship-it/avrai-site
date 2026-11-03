@@ -48,17 +48,27 @@ export function SiteShell({
 
         <nav className={styles.nav} aria-label="Primary navigation">
           {primaryNav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={
-                currentPath === item.href
-                  ? `${styles.navLink} ${styles.navLinkActive}`
-                  : styles.navLink
-              }
-            >
-              {item.label}
-            </Link>
+            item.external ? (
+              <a
+                key={item.href}
+                href={item.href}
+                className={styles.navLink}
+              >
+                {item.label}
+              </a>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={
+                  currentPath === item.href
+                    ? `${styles.navLink} ${styles.navLinkActive}`
+                    : styles.navLink
+                }
+              >
+                {item.label}
+              </Link>
+            )
           ))}
         </nav>
       </header>

@@ -1,0 +1,50 @@
+# AVRAI
+
+AVRAI is an intelligence layer for real life. It helps people, businesses,
+communities, and agents understand context, choose better next steps, and
+improve through feedback while keeping action, privacy, and correction under
+clear control.
+
+Canonical site: https://avrai.org
+Demo site: https://avrai-demos.vercel.app
+Business portal: https://business.avrai.org
+General contact: info@avrai.org
+Business contact: business@avrai.org
+Partnerships: partnerships@avrai.org
+
+## What AVRAI is
+
+AVRAI connects context across people, places, businesses, events, groups,
+timing, intent, and outcomes. The goal is real-world coordination: better
+plans, better local discovery, better business representation, and better
+feedback loops.
+
+## Who AVRAI is for
+
+- People: personal discovery, local planning, events, groups, and next steps.
+- Businesses: operator context, profiles, vibe, customer fit, and follow-up.
+- Communities: aggregate planning, relationship gaps, places, partners, and
+  coordination needs.
+- Agents and partners: bounded context, reviewable receipts, and controlled
+  action pathways.
+
+## How AVRAI works
+
+1. Read context across real-world entities and moments.
+2. Suggest reviewable next steps.
+3. Learn from corrections, receipts, and outcomes.
+
+## Trust boundaries
+
+AVRAI should not be described as an unchecked automation layer or a generic LLM
+wrapper. Runtime OS owns action boundaries, consent, redaction, receipts, and
+correction paths. Public demos are controlled surfaces unless clearly labeled
+otherwise. Demos do not imply live action authority, empirical readiness, or
+raw personal data access.
+
+## Public status
+
+- avrai.org: canonical public explanation and contact.
+- avrai-demos.vercel.app: proof-by-example demos and research surfaces.
+- business.avrai.org: business portal and pilot operator flow.
+
