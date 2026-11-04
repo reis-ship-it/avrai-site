@@ -9,9 +9,26 @@ const SIDES = 14;
 const LOOP_COUNT = 3;
 const TWO_PI = Math.PI * 2;
 const ONYX = "#08090b";
-const CHAIN_WEIGHTS = [[1, 0.2, 0.08], [0.2, 1, 0.2], [0.08, 0.2, 1]] as const;
-// The closest ring surfaces are about 0.054 world units apart. A selected
-// ring may move a little, but linked rings must stay closer than this gap.
+const CHAIN_WEIGHTS = [[1, 0.2, 0.2], [0.2, 1, 0.2], [0.2, 0.2, 1]] as const;
+const FALLBACK_ARCS_PER_LOOP = 24;
+// Three circles from one Hopf family: every pair is interlocked. A shared
+// breathing scale preserves the links while the rings move independently.
+const LOOP_LAYOUT = [
+  { tilt: 30, phase: -60 },
+  { tilt: 35, phase: 155 },
+  { tilt: 30, phase: 60 },
+].map(({ tilt, phase }) => {
+  const tiltRadians = (tilt * Math.PI) / 180;
+  const phaseRadians = (phase * Math.PI) / 180;
+  return {
+    slope: Math.tan(tiltRadians),
+    radius: 1 / Math.cos(tiltRadians),
+    sinPhase: Math.sin(phaseRadians),
+    cosPhase: Math.cos(phaseRadians),
+  };
+});
+// The closest neutral centerlines are about 0.50 world units apart. Keep
+// pulled rings close enough that their 0.29-wide tubes never intersect.
 const MAX_RING_TUG = 0.035;
 const MAX_LINK_OFFSET = 0.035;
 
@@ -24,37 +41,25 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
 
-function pointOnLoop(loop: number, t: number, openness: number, time: number) {
-  const breath = openness - 0.5;
-  const cosine = Math.cos(t);
+function pointOnLoop(loop: number, t: number, openness: number) {
+  const layout = LOOP_LAYOUT[loop];
+  const scale = 1 + 0.024 * (openness - 0.5);
+  const radial = layout.slope + layout.radius * Math.cos(t);
   const sine = Math.sin(t);
-
-  if (loop === 1) {
-    // The tilted middle ring passes through each outer ring's open center.
-    return [
-      (0.55 + 0.025 * breath) * cosine,
-      0.5 + (0.95 + 0.035 * breath) * sine,
-      (0.85 + 0.025 * breath) * cosine + 0.02 * Math.sin(3 * t + time * 0.2),
-    ] as const;
-  }
-
-  const side = loop === 0 ? -1 : 1;
-  const phase = loop === 0 ? 0 : 1.7;
-  const radius = 1.03 + 0.06 * breath;
   return [
-    side * 0.82 + radius * cosine * (1 + 0.025 * Math.sin(3 * t + phase)),
-    -0.4 + radius * sine * (1 + 0.02 * Math.cos(2 * t + phase)),
-    side * 0.45 + 0.02 * Math.sin(2 * t + time * 0.25 + phase),
+    scale * (radial * layout.sinPhase - sine * layout.cosPhase),
+    scale * (radial * layout.cosPhase + sine * layout.sinPhase),
+    scale * -layout.slope * sine,
   ] as const;
 }
 
 // This vector remains visible until WebGL has drawn its first frame, and when
 // WebGL is unavailable or the context is lost.
-const fallbackArcs = Array.from({ length: LOOP_COUNT * 12 }, (_, index) => {
-  const loop = Math.floor(index / 12);
-  const arc = index % 12;
-  const points = Array.from({ length: 17 }, (_, point) =>
-    pointOnLoop(loop, ((arc + point / 16) / 12) * TWO_PI, 0.82, 0),
+const fallbackArcs = Array.from({ length: LOOP_COUNT * FALLBACK_ARCS_PER_LOOP }, (_, index) => {
+  const loop = Math.floor(index / FALLBACK_ARCS_PER_LOOP);
+  const arc = index % FALLBACK_ARCS_PER_LOOP;
+  const points = Array.from({ length: 9 }, (_, point) =>
+    pointOnLoop(loop, ((arc + point / 8) / FALLBACK_ARCS_PER_LOOP) * TWO_PI, 0.82),
   );
   return {
     loop,
@@ -145,9 +150,9 @@ function makeTube(THREE: Three, loop: number) {
   const closingNormal = new THREE.Vector3();
   const closingCross = new THREE.Vector3();
 
-  const update = (openness: number, time: number) => {
+  const update = (openness: number) => {
     for (let i = 0; i < SEGMENTS; i++) {
-      const [x, y, z] = pointOnLoop(loop, (i / SEGMENTS) * TWO_PI, openness, time);
+      const [x, y, z] = pointOnLoop(loop, (i / SEGMENTS) * TWO_PI, openness);
       points[i].set(x, y, z);
     }
 
@@ -270,7 +275,7 @@ function mountScene(
   let camera: import("three").PerspectiveCamera;
   let mesh: import("three").Group;
   let scene: import("three").Scene;
-  let updateTubes: (openness: number, time: number) => void;
+  let updateTubes: (openness: number) => void;
 
   const updateScrollTarget = () => {
     const pageHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
@@ -292,7 +297,7 @@ function mountScene(
     // finger select a ring near its edge without raycasting every frame.
     for (let ring = 0; ring < LOOP_COUNT; ring++) {
       for (let sample = 0; sample < 64; sample++) {
-        const [x, y, z] = pointOnLoop(ring, (sample / 64) * TWO_PI, lastOpenness, elapsed);
+        const [x, y, z] = pointOnLoop(ring, (sample / 64) * TWO_PI, lastOpenness);
         projectedPoint.set(x, y, z).applyMatrix4(ringMeshes[ring].matrixWorld).project(camera);
         const dx = (projectedPoint.x * 0.5 + 0.5) * rect.width + rect.left - clientX;
         const dy = (0.5 - projectedPoint.y * 0.5) * rect.height + rect.top - clientY;
@@ -354,8 +359,7 @@ function mountScene(
           const magnitude = Math.min(MAX_RING_TUG, length * 0.26);
           const tugX = length ? (nx / length) * magnitude : 0;
           const tugY = length ? (ny / length) * magnitude : 0;
-          // The middle ring links both outers. An outer-ring tug reaches the
-          // opposite outer ring through the middle with a smaller response.
+          // Every ring links both others, so each tug reaches the full set.
           for (let ring = 0; ring < LOOP_COUNT; ring++) {
             ringTargetX[ring] = tugX * CHAIN_WEIGHTS[drag.ring][ring];
             ringTargetY[ring] = tugY * CHAIN_WEIGHTS[drag.ring][ring];
@@ -415,7 +419,7 @@ function mountScene(
 
   const drawStill = (nudge = false) => {
     if (!renderer || !scene || !camera || !mesh || contextLost || disposed) return;
-    updateTubes(0.82, 0);
+    updateTubes(0.82);
     lastOpenness = 0.82;
     ringMeshes.forEach((ringMesh) => ringMesh.position.set(0, 0, 0));
     mesh.position.set(0, 0, 0);
@@ -442,7 +446,7 @@ function mountScene(
     breathPhase += dt * (0.52 + 0.2 * scrollValue);
     const openness = 0.5 + 0.5 * Math.sin(breathPhase + 0.9);
     lastOpenness = openness;
-    updateTubes(openness, elapsed);
+    updateTubes(openness);
     const nudgeAge = elapsed - nudgeStart;
     const nudgePhase = nudgeAge / 0.75;
     const nudge = nudgePhase > 0 && nudgePhase < 1
@@ -457,9 +461,8 @@ function mountScene(
 
     for (let ring = 0; ring < LOOP_COUNT; ring++) {
       const ringMesh = ringMeshes[ring];
-      const farNeighbor = tugRing !== null && Math.abs(tugRing - ring) === 2;
-      const stiffness = ring === tugRing ? 105 : farNeighbor ? 32 : 52;
-      const damping = ring === tugRing ? 15 : farNeighbor ? 9 : 11;
+      const stiffness = ring === tugRing ? 105 : 52;
+      const damping = ring === tugRing ? 15 : 11;
       const decay = Math.exp(-damping * dt);
       const targetX = ringTargetX[ring] + nudge * CHAIN_WEIGHTS[nudgeRing][ring];
       ringVelocityX[ring] = (ringVelocityX[ring] + (targetX - ringMesh.position.x) * stiffness * dt) * decay;
@@ -475,23 +478,29 @@ function mountScene(
 
     }
 
-    // The middle ring links both outers. Project each linked pair back inside
-    // the clearance budget after springs, including fast drag reversals.
-    for (const outer of [0, 2]) {
-      const linked = ringMeshes[outer].position;
-      const middle = ringMeshes[1].position;
-      const dx = linked.x - middle.x;
-      const dy = linked.y - middle.y;
-      const distance = Math.hypot(dx, dy);
-      if (distance > MAX_LINK_OFFSET) {
+    // Project all three linked pairs inside the clearance budget, including
+    // fast drag reversals. A few passes settle the shared triangle of offsets.
+    for (let pass = 0; pass < 3; pass++) {
+      for (const [a, b] of [[0, 1], [1, 2], [0, 2]] as const) {
+        const first = ringMeshes[a].position;
+        const second = ringMeshes[b].position;
+        const dx = first.x - second.x;
+        const dy = first.y - second.y;
+        const distance = Math.hypot(dx, dy);
+        if (distance <= MAX_LINK_OFFSET) continue;
         const nx = dx / distance;
         const ny = dy / distance;
-        linked.x = middle.x + nx * MAX_LINK_OFFSET;
-        linked.y = middle.y + ny * MAX_LINK_OFFSET;
-        const outwardVelocity = (ringVelocityX[outer] - ringVelocityX[1]) * nx + (ringVelocityY[outer] - ringVelocityY[1]) * ny;
+        const correction = (distance - MAX_LINK_OFFSET) * 0.5;
+        first.x -= nx * correction;
+        first.y -= ny * correction;
+        second.x += nx * correction;
+        second.y += ny * correction;
+        const outwardVelocity = (ringVelocityX[a] - ringVelocityX[b]) * nx + (ringVelocityY[a] - ringVelocityY[b]) * ny;
         if (outwardVelocity > 0) {
-          ringVelocityX[outer] -= nx * outwardVelocity;
-          ringVelocityY[outer] -= ny * outwardVelocity;
+          ringVelocityX[a] -= nx * outwardVelocity * 0.5;
+          ringVelocityY[a] -= ny * outwardVelocity * 0.5;
+          ringVelocityX[b] += nx * outwardVelocity * 0.5;
+          ringVelocityY[b] += ny * outwardVelocity * 0.5;
         }
       }
     }
@@ -633,7 +642,7 @@ function mountScene(
 
     const tubes = Array.from({ length: LOOP_COUNT }, (_, loop) => makeTube(THREE, loop));
     geometries = tubes.map((tube) => tube.geometry);
-    updateTubes = (openness, time) => tubes.forEach((tube) => tube.update(openness, time));
+    updateTubes = (openness) => tubes.forEach((tube) => tube.update(openness));
     material = new THREE.MeshPhysicalMaterial({
       color: 0xe6ebf1,
       metalness: 1,
