@@ -170,9 +170,7 @@
 }
 
 .footerLinks a:hover,
-.footerLinks a:focus-visible,
-.businessNote a:hover,
-.businessNote a:focus-visible {
+.footerLinks a:focus-visible {
   color: var(--white);
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -296,23 +294,6 @@
   color: var(--faint-white);
   font-size: 0.79rem;
   line-height: 1.6;
-}
-
-.businessNote {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 10px 16px;
-  margin-top: 38px;
-  padding-top: 22px;
-  border-top: 1px solid var(--line);
-  color: var(--soft-white);
-  font-size: 0.82rem;
-}
-
-.businessNote a {
-  color: var(--white);
-  font-weight: 650;
 }
 
 @media (max-width: 1240px) {
