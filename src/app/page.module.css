@@ -43,8 +43,7 @@
 }
 
 .navAction:hover,
-.navAction:focus-visible,
-.navActionCurrent {
+.navAction:focus-visible {
   background: var(--white);
   color: var(--onyx);
 }

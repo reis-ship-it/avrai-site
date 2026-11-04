@@ -14,20 +14,13 @@ export function SiteShell({ children, currentPath }: SiteShellProps) {
         <Link className={styles.brand} href="/" aria-label="AVRAI home">
           AVRAI
         </Link>
-        <nav aria-label="Primary navigation">
-          <Link
-            className={[
-              styles.navAction,
-              currentPath === "/access" && styles.navActionCurrent,
-            ]
-              .filter(Boolean)
-              .join(" ")}
-            href="/access"
-            aria-current={currentPath === "/access" ? "page" : undefined}
-          >
-            Request access
-          </Link>
-        </nav>
+        {currentPath !== "/access" && (
+          <nav aria-label="Primary navigation">
+            <Link className={styles.navAction} href="/access">
+              Request access
+            </Link>
+          </nav>
+        )}
       </header>
 
       <main className={styles.main}>{children}</main>
