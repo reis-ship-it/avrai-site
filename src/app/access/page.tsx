@@ -29,12 +29,6 @@ export default function AccessPage() {
             Submitting this form does not create an account or guarantee access.
             We use these details to follow up about AVRAI.
           </p>
-          <div className={styles.businessNote}>
-            <span>For businesses</span>
-            <a href="https://business.avrai.org/signup">
-              Create a business account <span aria-hidden="true">↗</span>
-            </a>
-          </div>
         </div>
       </section>
     </SiteShell>
